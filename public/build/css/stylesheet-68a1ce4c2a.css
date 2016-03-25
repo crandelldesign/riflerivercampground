@@ -7824,4 +7824,217 @@ button.close {
 .fa-percent:before {
   content: ""; }
 
+/* Master Styles */
+body {
+  font-family: 'Arimo', sans-serif;
+  background: #4cb848 url(/img/background.jpg) no-repeat;
+  background-size: cover;
+  font-size: 15px; }
+
+p {
+  margin: 0 0 20px; }
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 20px; }
+  ul ul, ul ol, ol ul, ol ol {
+    margin-bottom: 0; }
+
+.btn {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border-color: #ccc; }
+  .btn:visited {
+    color: #FFF; }
+  .btn:hover, .btn:focus {
+    color: #FFF; }
+
+.btn-blue {
+  color: #FFF;
+  background-color: #1a4b68;
+  border-color: #FFF; }
+  .btn-blue:hover {
+    background-color: #2e80b0; }
+
+.btn-green {
+  color: #FFF;
+  background-color: #5a941e;
+  border-color: #FFF; }
+  .btn-green:hover {
+    background-color: #75c026; }
+
+.subhead .btn {
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19); }
+
+select.form-control, input.form-control, textarea.form-control {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border-color: #ccc; }
+
+.input-group {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px; }
+  .input-group select.form-control, .input-group input.form-control, .input-group .btn {
+    box-shadow: none; }
+
+a {
+  color: #4da377; }
+  a:visited {
+    color: #4da377; }
+  a:hover, a:focus {
+    color: #5a941e; }
+
+/* Header */
+.header {
+  background-color: #FFF;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 30px; }
+  @media (min-width: 1200px) {
+    .header .container-fluid {
+      max-width: 1200px; } }
+  .header .navbar-brand {
+    width: 200px;
+    height: 110px; }
+    @media (max-width: 768px) {
+      .header .navbar-brand {
+        float: none;
+        display: block;
+        margin: 0 auto; } }
+    .header .navbar-brand .logo {
+      margin-top: 0;
+      width: 170px;
+      height: 80px; }
+  .header .navbar-toggle {
+    background: none;
+    box-shadow: none;
+    float: none;
+    margin: 10px auto 0 auto;
+    display: block;
+    border: 1px solid #1a4b68; }
+    @media (min-width: 768px) {
+      .header .navbar-toggle {
+        display: none; } }
+    .header .navbar-toggle:hover, .header .navbar-toggle:focus {
+      background: none;
+      box-shadow: none;
+      border: 1px solid #1a4b68; }
+    .header .navbar-toggle .icon-bar {
+      background-color: #1a4b68; }
+    .header .navbar-toggle .pull-left {
+      margin-right: 5px;
+      font-size: 15px;
+      line-height: 15px;
+      margin-top: -1px;
+      text-shadow: none;
+      color: #1a4b68; }
+  @media (min-width: 768px) {
+    .header .navbar-nav {
+      margin-top: 35px; }
+      .header .navbar-nav li > a {
+        margin: 0px 12px; } }
+  @media (min-width: 1200px) {
+    .header .navbar-nav li > a {
+      margin: 0px 15px; } }
+  .header .navbar-nav > li.active, .header .navbar-nav > li.open, .header .navbar-nav > li.current-menu-parent {
+    background: #4da377; }
+    @media (min-width: 768px) {
+      .header .navbar-nav > li.active, .header .navbar-nav > li.open, .header .navbar-nav > li.current-menu-parent {
+        background: none; } }
+    .header .navbar-nav > li.active > a, .header .navbar-nav > li.open > a, .header .navbar-nav > li.current-menu-parent > a {
+      color: #FFF; }
+      @media (min-width: 768px) {
+        .header .navbar-nav > li.active > a, .header .navbar-nav > li.open > a, .header .navbar-nav > li.current-menu-parent > a {
+          color: #231f20;
+          background: none;
+          border-bottom: #4da377 2px solid; } }
+  .header .navbar-nav > li > a {
+    font-weight: bold;
+    color: #231f20; }
+    .header .navbar-nav > li > a:hover, .header .navbar-nav > li > a:focus {
+      background: #4da377;
+      color: #FFF; }
+      @media (min-width: 768px) {
+        .header .navbar-nav > li > a:hover, .header .navbar-nav > li > a:focus {
+          background: none;
+          border-bottom: #4da377 2px solid;
+          color: #231f20; } }
+  .header .navbar-nav .dropdown-menu > li.active, .header .navbar-nav .dropdown-menu > li:hover {
+    background: #4da377; }
+    .header .navbar-nav .dropdown-menu > li.active > a, .header .navbar-nav .dropdown-menu > li:hover > a {
+      color: #FFF;
+      background: none; }
+  .header .navbar-nav .dropdown-menu > li > a {
+    color: #FFF;
+    margin: 0; }
+    @media (min-width: 768px) {
+      .header .navbar-nav .dropdown-menu > li > a {
+        color: #231f20; } }
+    .header .navbar-nav .dropdown-menu > li > a:hover, .header .navbar-nav .dropdown-menu > li > a:focus {
+      background: none; }
+
+/* Subhead */
+.subhead {
+  min-height: 250px;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 20px;
+  display: none; }
+  .subhead h1 {
+    margin: 50px 0;
+    color: #FFF; }
+  .subhead .btn {
+    margin: 0 10px 15px; }
+
+body.home .subhead {
+  display: block; }
+
+/* Page */
+.page {
+  padding: 20px;
+  min-height: 300px;
+  margin: 0 20px;
+  background-color: #FFF;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+  @media (min-width: 1200px) {
+    .page {
+      margin: 0 auto;
+      max-width: 1200px; } }
+  .page h1 {
+    color: #177343; }
+  .page h2 {
+    color: #1a4b68; }
+
+/* Footer */
+.footer {
+  color: #FFF;
+  font-size: 10px;
+  text-align: center;
+  padding: 20px 0;
+  margin: 0 20px; }
+  @media (min-width: 768px) {
+    .footer {
+      font-size: 12px; } }
+  @media (min-width: 1200px) {
+    .footer {
+      max-width: 1200px;
+      margin: 0 auto; } }
+  .footer p {
+    margin-bottom: 2px; }
+  .footer a {
+    color: #FFF; }
+
+/* Contact Page */
+.page-contact .cscfForm {
+  margin-bottom: 20px; }
+
+/* Reservation */
+.reservation-inline {
+  margin-bottom: 15px; }
+  @media (min-width: 768px) {
+    .reservation-inline {
+      text-align: center; } }
+  .reservation-inline .form-group {
+    margin-left: 10px;
+    margin-right: 10px; }
+  .reservation-inline label {
+    margin-right: 5px; }
+
 /*# sourceMappingURL=stylesheet.css.map */

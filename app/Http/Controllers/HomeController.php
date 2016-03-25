@@ -17,6 +17,7 @@ class HomeController extends Controller
         $view = view('home.index');
         $view->title = "Rifle River Campground";
         $view->description = "Rifle River Campground";
+        $view->active_page = 'home';
         return $view;
     }
 }

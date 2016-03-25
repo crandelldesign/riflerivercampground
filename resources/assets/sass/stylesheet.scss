@@ -1,4 +1,272 @@
 @import 'bootstrap';
 @import 'font-awesome';
 @import 'variables';
+@import 'mixins';
 
+/* Master Styles */
+body {
+    font-family: 'Arimo', sans-serif;
+    background: #4cb848 url(/img/background.jpg) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-size: 15px;
+}
+p {
+    margin: 0 0 20px;
+}
+ul, ol {
+    margin-top: 0;
+    margin-bottom: 20px;
+    ul, ol {
+        margin-bottom: 0;
+    }
+}
+.btn {
+    @include shadow-1();
+    border-color: #ccc;
+    &:visited {
+        color: #FFF;
+    }
+    &:hover, &:focus {
+        color: #FFF;
+    }
+}
+.btn-blue {
+    color: #FFF;
+    background-color: $darkblue;
+    border-color: #FFF;
+    &:hover {
+        background-color: $lightblue;
+    }
+}
+.btn-green {
+    color: #FFF;
+    background-color: $green;
+    border-color: #FFF;
+    &:hover {
+        background-color: $lightgreen;
+    }
+}
+.subhead .btn {
+    @include shadow-3();
+}
+select.form-control, input.form-control, textarea.form-control {
+    @include shadow-1();
+    border-color: #ccc;
+}
+.input-group {
+    select.form-control, input.form-control, .btn {
+        @include shadow-0();
+    }
+    @include shadow-1();
+    border-radius: 4px;
+}
+a {
+    color: #4da377;
+    &:visited {
+        color: #4da377;
+    }
+    &:hover, &:focus {
+        color: #5a941e;
+    }
+}
+
+/* Header */
+.header {
+    background-color: #FFF;
+    @include shadow-2();
+    margin-bottom: 30px;
+    .container-fluid {
+        @media (min-width: $screen-lg-min) {
+            max-width: 1200px;
+        }
+    }
+    .navbar-brand {
+        width: 200px;
+        height: 110px;
+        @media (max-width: $screen-sm-min) {
+            float: none;
+            display: block;
+            margin: 0 auto;
+        }
+        .logo {
+            margin-top: 0;
+            width: 170px;
+            height: 80px;
+        }
+    }
+    .navbar-toggle {
+        background: none;
+        box-shadow: none;
+        float: none;
+        margin: 10px auto 0 auto;
+        display: block;
+        border: 1px solid $darkblue;
+        @media (min-width: $screen-sm-min) {
+            display: none;
+        }
+        &:hover, &:focus {
+            background: none;
+            box-shadow: none;
+            border: 1px solid $darkblue;
+        }
+        .icon-bar {
+            background-color: $darkblue;
+        }
+        .pull-left {
+            margin-right: 5px;
+            font-size: 15px;
+            line-height: 15px;
+            margin-top: -1px;
+            text-shadow: none;
+            color: $darkblue;
+        }
+    }
+    .navbar-nav {
+        @media (min-width: $screen-sm-min) {
+            margin-top: 35px;
+            li > a {
+                margin: 0px 12px;
+            }
+        }
+        @media (min-width: $screen-lg-min) {
+            li > a {
+                margin: 0px 15px;
+            }
+        }
+    }
+    .navbar-nav > li {
+        &.active, &.open, &.current-menu-parent {
+            background: $palegreen;
+            @media (min-width: $screen-sm-min) {
+                background: none;
+            }
+            > a {
+                color: #FFF;
+                @media (min-width: $screen-sm-min) {
+                    color: $black;
+                    background: none;
+                    border-bottom: $palegreen 2px solid;
+                }
+            }
+        }
+        > a {
+            font-weight: bold;
+            color: $black;
+            &:hover, &:focus {
+                background: $palegreen;
+                color: #FFF;
+                @media (min-width: $screen-sm-min) {
+                    background: none;
+                    border-bottom: $palegreen 2px solid;
+                    color: $black;
+                }
+            }
+        }
+    }
+    .navbar-nav .dropdown-menu > li {
+        &.active, &:hover {
+            background: $palegreen;
+            > a {
+                color: #FFF;
+                background: none;
+            }
+        }
+        > a {
+            color: #FFF;
+            margin: 0;
+            @media (min-width: $screen-sm-min) {
+                color: $black;
+            }
+            &:hover, &:focus {
+                background: none;
+            }
+        }
+    }
+}
+
+/* Subhead */
+.subhead {
+    min-height: 250px;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 20px;
+    display: none;
+    h1 {
+        margin: 50px 0;
+        color: #FFF;
+    }
+    .btn {
+        margin: 0 10px 15px;
+    }
+}
+body.home .subhead {
+    display: block;
+}
+
+/* Page */
+.page {
+    padding: 20px;
+    min-height: 300px;
+    margin: 0 20px;
+    background-color: #FFF;
+    @include shadow-2();
+    @media (min-width: $screen-lg-min) {
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+    h1 {
+        color: #177343;
+    }
+    h2 {
+        color: #1a4b68;
+    }
+}
+
+/* Footer */
+.footer {
+    color: #FFF;
+    font-size: 10px;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0 20px;
+    @media (min-width: $screen-sm-min) {
+        font-size: 12px;
+    }
+    @media (min-width: $screen-lg-min) {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .container-fluid {
+        @media (min-width: $screen-lg-min) {
+        }
+    }
+    p {
+        margin-bottom: 2px;
+    }
+    a {
+        color: #FFF;
+    }
+}
+
+/* Contact Page */
+.page-contact .cscfForm {
+    margin-bottom: 20px;
+}
+
+/* Reservation */
+.reservation-inline {
+    margin-bottom: 15px;
+    @media (min-width: $screen-sm-min) {
+        text-align: center;
+    }
+    .form-group {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    label {
+        margin-right: 5px;
+    }
+}
