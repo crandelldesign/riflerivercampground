@@ -1,4 +1,4 @@
-<title>{{isset($title) ? $title.' | ' : ''}}Christ Lutheran Church</title>
+<title>{{isset($title) ? $title.' | ' : ''}}Rifle River Campground</title>
 <meta name="description" content="{{isset($description) ? $description : ''}}">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace riflerivercampground;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;

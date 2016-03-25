@@ -140,10 +140,10 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        riflerivercampground\Providers\AppServiceProvider::class,
+        riflerivercampground\Providers\AuthServiceProvider::class,
+        riflerivercampground\Providers\EventServiceProvider::class,
+        riflerivercampground\Providers\RouteServiceProvider::class,
 
     ],
 

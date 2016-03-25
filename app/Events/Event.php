@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace riflerivercampground\Events;
 
 abstract class Event
 {
