@@ -6,7 +6,7 @@
     </head>
     <body>
         @include('master.templates.nav')
-        @yield('subheader')
+        @yield('subhead')
         <div class="page">
             @yield('body')
         </div>

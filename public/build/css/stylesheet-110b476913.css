@@ -7825,9 +7825,13 @@ button.close {
   content: ""; }
 
 /* Master Styles */
+html, body {
+  height: 100%;
+  width: 100%; }
+
 body {
   font-family: 'Arimo', sans-serif;
-  background: #4cb848 url(/img/background.jpg) no-repeat;
+  background: #4cb848 url(/img/background.jpg) no-repeat fixed;
   background-size: cover;
   font-size: 15px; }
 
@@ -7906,7 +7910,7 @@ a {
     background: none;
     box-shadow: none;
     float: none;
-    margin: 10px auto 0 auto;
+    margin: 0 auto 10px auto;
     display: block;
     border: 1px solid #1a4b68; }
     @media (min-width: 768px) {
@@ -7975,16 +7979,12 @@ a {
   min-height: 250px;
   overflow: hidden;
   text-align: center;
-  margin-bottom: 20px;
-  display: none; }
+  margin-bottom: 20px; }
   .subhead h1 {
     margin: 50px 0;
     color: #FFF; }
   .subhead .btn {
     margin: 0 10px 15px; }
-
-body.home .subhead {
-  display: block; }
 
 /* Page */
 .page {
