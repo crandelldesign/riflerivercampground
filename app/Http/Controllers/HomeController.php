@@ -33,9 +33,14 @@ class HomeController extends Controller
     public function getContact()
     {
         $view = view('home.contact');
-        $view->title = "contact";
-        $view->description = "Our campground is RV and tent friendly and has many types of sites to meet your camping needs. All of our sites are grassy for your comfort. Over 25 of our sites are directly on the water’s edge. All of our campsites have a fire pit and picnic table. Our sites vary in size...";
+        $view->title = "Contact";
+        $view->description = "Rifle River Campgrouns is located at 5825 Town Line Rd, Sterling, MI";
         $view->active_page = 'contact';
         return $view;
+    }
+
+    public function postContact()
+    {
+        
     }
 }
