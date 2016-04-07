@@ -3,6 +3,8 @@
 namespace riflerivercampground\Http\Controllers;
 
 use riflerivercampground\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -39,8 +41,45 @@ class HomeController extends Controller
         return $view;
     }
 
-    public function postContact()
+    public function postContact(Request $request)
     {
-        
+        print_r($request->all());
+        //exit;
+
+        $validator = $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+                'g-recaptcha-response' => 'required',
+                'message' => 'required'
+            ],
+            [
+                'name.required' => 'Please enter your name.',
+                'email.required' => 'Please enter your email address.',
+                'phone.required' => 'Please enter your phone number.',
+                'g-recaptcha-response.required' => 'Please check the reCAPTCHA box.',
+                'message.required' => 'Please enter a message.'
+            ]
+        );
+
+        $data = array(
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'phone' => $request->get('phone'),
+            'best_time' => $request->get('best_time'),
+            'message_text' => $request->get('message'),
+        );
+
+        Mail::send('emails.contact', $data, function($message) use ($request)
+        {
+            $message->to('mrcrandell@gmail.com', 'Rifle River Campground Reservations');
+            $message->from('reservations@riflerivercampground.com', 'Rifle River Campground Reservations');
+            $message->replyTo($request->get('email'), $request->get('name'));
+            $message->subject('You\'ve Been Contacted by the Rifle River Campground Website.');
+        });
+
+        return redirect('/contact')->with('status', 'Thank you for contacting us, we will get back to you as soon as possible.');
     }
 }
