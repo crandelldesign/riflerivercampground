@@ -5,14 +5,9 @@
 @import 'mixins';
 
 /* Master Styles */
-html, body {
-    height: 100%;
-    width: 100%;
-}
-
 body {
     font-family: 'Arimo', sans-serif;
-    background: #4cb848 url(/img/background.jpg) no-repeat fixed;
+    background: #4cb848 url(/img/background.jpg) no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
