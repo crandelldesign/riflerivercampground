@@ -43,9 +43,6 @@ class HomeController extends Controller
 
     public function postContact(Request $request)
     {
-        print_r($request->all());
-        //exit;
-
         $validator = $this->validate(
             $request,
             [
