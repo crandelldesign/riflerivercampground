@@ -71,6 +71,7 @@ a {
     }
     &:hover, &:focus {
         color: #5a941e;
+        text-decoration: none;
     }
 }
 
@@ -216,6 +217,9 @@ a {
     }
     h1 {
         color: #177343;
+    }
+    > h1:first-child {
+        margin-bottom: 22px;
     }
     h2 {
         color: #1a4b68;

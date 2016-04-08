@@ -7881,7 +7881,8 @@ a {
   a:visited {
     color: #4da377; }
   a:hover, a:focus {
-    color: #5a941e; }
+    color: #5a941e;
+    text-decoration: none; }
 
 /* Header */
 .header {
@@ -7996,6 +7997,8 @@ a {
       max-width: 1200px; } }
   .page h1 {
     color: #177343; }
+  .page > h1:first-child {
+    margin-bottom: 22px; }
   .page h2 {
     color: #1a4b68; }
 

@@ -32,6 +32,59 @@ class HomeController extends Controller
         return $view;
     }
 
+    public function getCabins()
+    {
+        $view = view('home.cabins');
+        $view->title = "Cabins";
+        $view->description = "Open the windows at night and fall asleep to the sound of the babbling river, while resting comfortably on a real bed. Camping cabins are now available for those who want to experience the beauty of the outdoors while enjoying some of the creature comforts of home. Our Amish-built cabins feature a cozy porch with...";
+        $view->active_page = 'cabins';
+        return $view;
+    }
+
+    public function getRiverTrips($sub = null)
+    {
+        if ($sub == 'canoeing') {
+            $view = view('home.canoeing');
+            $view->title = "Canoeing";
+            $view->description = "Drift down the Rifle in one of our aluminum canoes.";
+            $view->active_page = 'river-trips';
+            return $view;
+        } elseif ($sub == 'kayaking') {
+            $view = view('home.kayaking');
+            $view->title = "Kayaking";
+            $view->description = "Looking to be closer to the water but not in it? Try kayaking! Kayaks are easier to paddle for those going on their first water trip. Kayaks are easier to maneuver. We offer kayaks for one or two riders. Single rider kayaks are available in two styles: sit on top or sit inside.";
+            $view->active_page = 'river-trips';
+            return $view;
+        } elseif ($sub == 'tubing') {
+            $view = view('home.tubing');
+            $view->title = "Tubing";
+            $view->description = "Lay back and relax as you drift your way down the river on one of our tubes. We offer several styles of tubes to suit you. Our Deluxe tubes offer the most comfort while floating, as they are a larger tube with a back rest.";
+            $view->active_page = 'river-trips';
+            return $view;
+        } elseif ($sub == 'specials') {
+            $view = view('home.specials');
+            $view->title = "Specials";
+            $view->description = "River trip specials";
+            $view->active_page = 'river-trips';
+            return $view;
+        } else {
+            $view = view('home.river-trips');
+            $view->title = "River Trips";
+            $view->description = "There are many fun ways to make it down the beautiful Rifle River. Check them out to see more. Canoeing, Kayaking, and Tubing";
+            $view->active_page = 'river-trips';
+            return $view;
+        }
+    }
+
+    public function getParkMap()
+    {
+        $view = view('home.park-map');
+        $view->title = "Park Map";
+        $view->description = "Map of the park";
+        $view->active_page = 'park-map';
+        return $view;
+    }
+
     public function getContact()
     {
         $view = view('home.contact');
