@@ -10,6 +10,12 @@
     <div class="col-sm-6 col-md-3">
         <a class="img-modal" data-caption="Our youngest guests enjoy hours of fun on our Rainbow Play System." href="{{url('/img/photos/playground2.jpg')}}"><img class="img-responsive" alt="Our youngest guests enjoy hours of fun on our Rainbow Play System." src="{{url('/img/photos/playground2.jpg')}}"></a>
     </div>
+    <div class="col-sm-6 col-md-3">
+        <a class="img-modal" data-caption="Peaceful scenes abound on our hiking trail." href="{{url('/img/photos/hiking2.jpg')}}"><img class="img-responsive" alt="Peaceful scenes abound on our hiking trail." src="{{url('/img/photos/hiking2.jpg')}}"></a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <a class="img-modal" href="{{url('/img/photos/hiking1.jpg')}}"><img class="img-responsive" alt="Hiking" src="{{url('/img/photos/hiking1.jpg')}}"></a>
+    </div>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="img-modal">
@@ -25,7 +31,9 @@
 </div><!-- /.modal -->
 
 <script id="img-modal-template" type="x-tmpl-mustache">
+    @{{#if caption}}
     <p class="caption">@{{caption}}</p>
+    @{{/if}}
     <div class="image"><img src="@{{src}}" alt="@{{caption}}" class="img-responsive"></div>
 </script>
 
