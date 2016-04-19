@@ -7886,7 +7886,16 @@ a {
 
 .modal .modal-content {
   box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
-  border-radius: 2px; }
+  border-radius: 0;
+  border: 0; }
+
+a.img-modal {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: inline-block;
+  transition: box-shadow .5s;
+  margin-bottom: 30px; }
+  a.img-modal:hover {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 /* Header */
 .header {
