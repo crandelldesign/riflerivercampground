@@ -128,10 +128,12 @@ a {
     }
     .navbar-nav {
         @media (min-width: $screen-sm-min) {
-            margin-top: 35px;
             li > a {
-                margin: 0px 12px;
+                margin: 0px 9px;
             }
+        }
+        @media (min-width: $screen-md-min) {
+            margin-top: 35px;
         }
         @media (min-width: $screen-lg-min) {
             li > a {

@@ -7928,10 +7928,11 @@ a {
       text-shadow: none;
       color: #1a4b68; }
   @media (min-width: 768px) {
+    .header .navbar-nav li > a {
+      margin: 0px 9px; } }
+  @media (min-width: 992px) {
     .header .navbar-nav {
-      margin-top: 35px; }
-      .header .navbar-nav li > a {
-        margin: 0px 12px; } }
+      margin-top: 35px; } }
   @media (min-width: 1200px) {
     .header .navbar-nav li > a {
       margin: 0px 15px; } }
