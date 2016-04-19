@@ -25,11 +25,14 @@ elixir(function(mix) {
     );
     // Copy Bootstrap's JS
     mix.copy('node_modules/bootstrap-sass/assets/javascripts/*.js', 'resources/assets/js/bootstrap');
+    // Copy Handlebars's JS
+    mix.copy('node_modules/handlebars/dist/*.js', 'resources/assets/js/handlebars');
     // Build JS
     mix.scripts(
         [
             'jquery-2.2.1.js',
             'bootstrap/bootstrap.js',
+            'handlebars/handlebars.js',
             'master.js'
         ],
         'public/js/master.js'

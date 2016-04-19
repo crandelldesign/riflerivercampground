@@ -3,7 +3,8 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "bootstrap-sass": "^3.0.0",
-    "font-awesome": "^4.5.0"
+    "font-awesome": "^4.5.0",
+    "handlebars": "^4.0.5"
   },
   "dependencies": {
     "laravel-elixir": "^4.0.0"

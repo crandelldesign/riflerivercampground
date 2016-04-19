@@ -85,6 +85,15 @@ class HomeController extends Controller
         return $view;
     }
 
+    public function getPhotos()
+    {
+        $view = view('home.photos');
+        $view->title = "Photos";
+        $view->description = "Rifle River Campground is a beautiful place to visit. Check out the images to see for yourself.";
+        $view->active_page = 'photos';
+        return $view;
+    }
+
     public function getContact()
     {
         $view = view('home.contact');

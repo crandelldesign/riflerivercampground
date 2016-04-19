@@ -7884,6 +7884,10 @@ a {
     color: #5a941e;
     text-decoration: none; }
 
+.modal .modal-content {
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+  border-radius: 2px; }
+
 /* Header */
 .header {
   background-color: #FFF;
@@ -7929,10 +7933,12 @@ a {
       color: #1a4b68; }
   @media (min-width: 768px) {
     .header .navbar-nav li > a {
-      margin: 0px 9px; } }
+      margin: 0px 5px; } }
   @media (min-width: 992px) {
     .header .navbar-nav {
-      margin-top: 35px; } }
+      margin-top: 35px; }
+      .header .navbar-nav li > a {
+        margin: 0px 8px; } }
   @media (min-width: 1200px) {
     .header .navbar-nav li > a {
       margin: 0px 15px; } }

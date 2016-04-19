@@ -2,6 +2,8 @@
 
 @section('body')
 
+<h1>River Trips</h1>
+
 <p>There are many fun ways to make it down the beautiful Rifle River. Check them out to see more.</p>
 <ul>
     <li><a href="{{url('/river-trips/canoeing')}}">Canoeing</a></li>
