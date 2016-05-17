@@ -5,6 +5,7 @@
         @include('master.templates.head')
     </head>
     <body>
+        {!! Analytics::render() !!}
         @include('master.templates.nav')
         @yield('subhead')
         <div class="page">
