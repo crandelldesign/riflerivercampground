@@ -24,9 +24,9 @@ elixir(function(mix) {
         }
     );
     // Copy Bootstrap's JS
-    mix.copy('node_modules/bootstrap-sass/assets/javascripts/*.js', 'resources/assets/js/bootstrap');
+    mix.copy('node_modules/bootstrap-sass/assets/javascripts/bootstrap.js', 'resources/assets/js/bootstrap');
     // Copy Handlebars's JS
-    mix.copy('node_modules/handlebars/dist/*.js', 'resources/assets/js/handlebars');
+    mix.copy('node_modules/handlebars/dist/handlebars.js', 'resources/assets/js/handlebars');
     // Build JS
     mix.scripts(
         [
