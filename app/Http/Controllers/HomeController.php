@@ -5,6 +5,7 @@ namespace riflerivercampground\Http\Controllers;
 use riflerivercampground\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Mail;
+use Analytics;
 
 class HomeController extends Controller
 {
@@ -138,6 +139,8 @@ class HomeController extends Controller
             $message->replyTo($request->get('email'), $request->get('name'));
             $message->subject('You\'ve Been Contacted by the Rifle River Campground Website.');
         });
+
+        Analytics::trackEvent('Email', 'sent', 'Email Sent', 1);
 
         return redirect('/contact')->with('status', 'Thank you for contacting us, we will get back to you as soon as possible.');
     }
