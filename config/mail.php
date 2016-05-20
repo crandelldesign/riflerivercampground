@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'matt@crandelldesign.com', 'name' => 'Rifle River Campground Admin'],
 
     /*
     |--------------------------------------------------------------------------

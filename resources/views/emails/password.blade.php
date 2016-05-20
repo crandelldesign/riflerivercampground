@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>You've Been Contacted</title>
+    <title>Reset Your Password</title>
     <!-- Designed by https://github.com/kaytcat -->
     <!-- Header image designed by Freepik.com -->
 
@@ -150,7 +150,7 @@
                   <tr>
                     <td style="font-size:25px; font-weight: 600; color: #177343; text-align:center; padding: 15px 0; width: 100%" class="mobile-spacing">
                     <!--<div class="mobile-br">&nbsp;</div>-->
-                        You've Been Contacted by {{isset($name)?$name:'Name'}}
+                        Reset Your Password
                     <br/>
                     </td>
                   </tr>
@@ -176,13 +176,8 @@
                 <table style="margin:0 auto; width: 80%;" cellspacing="0" cellpadding="0" class="force-width-80">
                   <tr>
                     <td style="text-align:left; padding-top: 15px; font-size:16px; line-height: 1.4">
-                    <br>
-                    <strong>Name:</strong> {{isset($name)?$name:''}}<br>
-                    <strong>Email:</strong> {{isset($email)?$email:''}}<br>
-                    <strong>Phone:</strong> {{isset($phone)?$phone:''}}<br>
-                    <strong>Best Time to Call:</strong> {{isset($best_time)?$best_time:'N/A'}}<br>
-                    <br>
-                    <div>{{isset($name)?$name:''}} writes... {{isset($message_text)?$message_text:''}}</div>
+                    Click here to reset your password: <a href="{{ url('password/reset/'.$token) }}">{{ url('password/reset/'.$token) }}</a>
+                    <br><br>
                     </td>
                   </tr>
                 </table>
