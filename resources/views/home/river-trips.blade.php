@@ -1,6 +1,6 @@
-@extends('master.templates.master')
+@extends('layouts.default')
 
-@section('body')
+@section('content')
 
 <h1>River Trips</h1>
 

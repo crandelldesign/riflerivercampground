@@ -1,4 +1,4 @@
-@extends('master.templates.master')
+@extends('layouts.default')
 
 @section('subhead')
 <div class="subhead">
@@ -11,7 +11,7 @@
 </div>
 @stop
 
-@section('body')
+@section('content')
 
 <h1>Welcome to Rifle River Campground</h1>
 

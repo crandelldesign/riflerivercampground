@@ -1,6 +1,6 @@
-@extends('master.templates.master')
+@extends('layouts.default')
 
-@section('body')
+@section('content')
 <h1 >Cabins</h1>
 
 <p><img class="img-responsive" src="{{url('/img/cabins.jpg')}}" alt="cabins" width="1920" height="700"></p>

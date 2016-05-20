@@ -35,7 +35,7 @@ elixir(function(mix) {
             'handlebars/handlebars.js',
             'master.js'
         ],
-        'public/js/master.js'
+        'public/js/default.js'
     );
     // Copy Fonts
     mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/fonts/bootstrap');

@@ -1,10 +1,10 @@
-@extends('master.templates.master')
+@extends('layouts.default')
 
 @section('head')
 <script src='https://www.google.com/recaptcha/api.js'></script>
 @stop
 
-@section('body')
+@section('content')
 
 <h1>Contact Us</h1>
 

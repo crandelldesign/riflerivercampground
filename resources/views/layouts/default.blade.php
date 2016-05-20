@@ -2,18 +2,18 @@
 <html>
     <head>
         <meta charset="utf-8">
-        @include('master.templates.head')
+        @include('layouts.head')
     </head>
     <body>
         {!! Analytics::render() !!}
-        @include('master.templates.nav')
+        @include('layouts.nav')
         @yield('subhead')
         <div class="page">
-            @yield('body')
+            @yield('content')
         </div>
 
-        <script type="text/javascript" src="{{ elixir('js/master.js') }}"></script>
-        @include('master.templates.footer')
+        <script type="text/javascript" src="{{ elixir('js/default.js') }}"></script>
+        @include('layouts.footer')
         @yield('scripts')
     </body>
     

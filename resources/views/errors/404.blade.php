@@ -1,6 +1,6 @@
-@extends('master.templates.master')
+@extends('layouts.default')
 
-@section('body')
+@section('content')
 
 <h1>404 Error: Page Not Found</h1>
 
