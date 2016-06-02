@@ -8,6 +8,7 @@ use riflerivercampground\Http\Requests;
 use riflerivercampground\Http\Controllers\Controller;
 
 use riflerivercampground\CalendarEvent;
+use riflerivercampground\Holiday;
 
 class AdminController extends Controller
 {
@@ -56,6 +57,16 @@ class AdminController extends Controller
     {
         $view = view('emails.password');
         $view->token = '1234';
+        return $view;
+    }
+
+    public function getHolidays()
+    {
+        $holidays = Holiday::where('ends_at','<=',date("Y-m-d H:i:s"))->orderBy('starts_at', 'desc')->get();
+
+        $view = view('admin.holidays');
+        $view->active_page = 'holidays';
+        $view->holidays = $holidays;
         return $view;
     }
 }
