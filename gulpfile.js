@@ -19,7 +19,8 @@ elixir(function(mix) {
         {
             includePaths: [
                 'node_modules/bootstrap-sass/assets/stylesheets/',
-                'node_modules/font-awesome/scss/'
+                'node_modules/font-awesome/scss/',
+                'node_modules/eonasdan-bootstrap-datetimepicker/src/sass/',
             ]
         }
     );
@@ -52,6 +53,7 @@ elixir(function(mix) {
             'jquery-2.2.1.js',
             'bootstrap/bootstrap.js',
             'handlebars/handlebars.js',
+            'eonasdan-bootstrap-datetimepicker/bootstrap-datetimepicker.js',
             'default.js'
         ],
         'public/js/default.js'
