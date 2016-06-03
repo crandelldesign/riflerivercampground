@@ -72,7 +72,7 @@ elixir(function(mix) {
         'public/js/admin.js'
     );
     // Copy Fonts
-    mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/fonts/bootstrap');
+    mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap', 'public/fonts/bootstrap');
     mix.copy('node_modules/font-awesome/fonts', 'public/fonts');
     mix.copy('node_modules/summernote/dist/font', 'public/css/summernote/font');
 
@@ -80,7 +80,7 @@ elixir(function(mix) {
     mix.version(['css/stylesheet.css', 'css/admin.css', 'js/default.js', 'js/admin.js']);
 
     // Copy Fonts and Images for Build Numbers
-    mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/build/fonts/bootstrap');
+    mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap', 'public/build/fonts/bootstrap');
     mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
     mix.copy('public/img', 'public/build/img');
 });

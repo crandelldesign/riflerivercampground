@@ -62,11 +62,29 @@ class AdminController extends Controller
 
     public function getHolidays()
     {
-        $holidays = Holiday::where('ends_at','<=',date("Y-m-d H:i:s"))->orderBy('starts_at', 'desc')->get();
+        $holidays = Holiday::where('ends_at','>=',date("Y-m-d H:i:s"))->orderBy('starts_at', 'desc')->get();
 
         $view = view('admin.holidays');
         $view->active_page = 'holidays';
         $view->holidays = $holidays;
         return $view;
+    }
+
+    public function postHolidays(Request $request)
+    {
+        if ($request->get('holiday_id'))
+        {
+            $holiday = Holiday::find($request->get('holiday_id'));
+            $success_message = 'The holiday, '.$request->get('holiday_title').' was successfully updated';
+        } else {
+            $holiday = new Holiday;
+            $success_message = 'The holiday, '.$request->get('holiday_title').' was successfully added';
+        }
+        $holiday->title = $request->get('holiday_title');
+        $holiday->starts_at = date('Y-m-d H:i:s', strtotime($request->get('starts_at')));
+        $holiday->ends_at = date('Y-m-d H:i:s', strtotime($request->get('ends_at')));
+        $holiday->save();
+
+        return redirect('/admin/holidays')->with('success',$success_message);
     }
 }
