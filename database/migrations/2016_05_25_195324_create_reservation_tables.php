@@ -15,7 +15,7 @@ class CreateReservationTables extends Migration
         Schema::create('camp_sites', function (Blueprint $table) {
             $table->timestamps();
             $table->increments('id');
-            $table->integer('site_id');
+            $table->integer('site_id')->unique();
             $table->string('type');
             $table->float('adult_price');
             $table->float('child_price');
@@ -24,7 +24,7 @@ class CreateReservationTables extends Migration
         Schema::create('cabin_sites', function (Blueprint $table) {
             $table->timestamps();
             $table->increments('id');
-            $table->integer('site_id');
+            $table->integer('site_id')->unique();
             $table->float('price');
             $table->float('additional_adult_price');
             $table->float('additional_child_price');

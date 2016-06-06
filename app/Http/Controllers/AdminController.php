@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use riflerivercampground\Http\Requests;
 use riflerivercampground\Http\Controllers\Controller;
 
-use riflerivercampground\CalendarEvent;
+use riflerivercampground\CabinSite;
+use riflerivercampground\CampSite;
 use riflerivercampground\Holiday;
+use riflerivercampground\Reservation;
 
 class AdminController extends Controller
 {
@@ -59,10 +61,55 @@ class AdminController extends Controller
         $view->token = '1234';
         return $view;
     }
+    
+    public function getCamping()
+    {
+        $campsites = CampSite::orderBy('site_id', 'asc')->get();
+
+        $view = view('admin.camping');
+        $view->active_page = 'camping';
+        $view->campsites = $campsites;
+        return $view;
+    }
+
+    public function postCamping(Request $request)
+    {
+
+        $validator = $this->validate(
+            $request,
+            [
+                'site_id' => 'required|unique:camp_sites',
+                'adult_price' => 'required',
+                'child_price' => 'required',
+            ],
+            [
+                'site_id.required' => 'Please enter a site number.',
+                'site_id.unique' => 'This site number has already been used.',
+                'adult_price.required' => 'Please enter a price for adults.',
+                'child_price.required' => 'Please enter a price for children.',
+            ]
+        );
+
+        if ($request->get('campsite_id'))
+        {
+            $campsite = CampSite::find($request->get('campsite_id'));
+            $success_message = 'Campsite #'.$request->get('site_id').' was successfully updated.';
+        } else {
+            $campsite = new CampSite;
+            $success_message = 'Campsite #'.$request->get('site_id').' was successfully added.';
+        }
+        $campsite->site_id = $request->get('site_id');
+        $campsite->type = $request->get('type');
+        $campsite->adult_price = $request->get('adult_price');
+        $campsite->child_price = $request->get('child_price');
+        $campsite->save();
+
+        return redirect('/admin/camping')->with('success',$success_message);
+    }
 
     public function getHolidays()
     {
-        $holidays = Holiday::where('ends_at','>=',date("Y-m-d H:i:s"))->orderBy('starts_at', 'desc')->get();
+        $holidays = Holiday::where('ends_at','>=',date("Y-m-d H:i:s"))->orderBy('starts_at', 'asc')->get();
 
         $view = view('admin.holidays');
         $view->active_page = 'holidays';
@@ -72,13 +119,28 @@ class AdminController extends Controller
 
     public function postHolidays(Request $request)
     {
+
+        $validator = $this->validate(
+            $request,
+            [
+                'title' => 'required',
+                'starts_at' => 'required',
+                'ends_at' => 'required'
+            ],
+            [
+                'title.required' => 'Please enter a title for this holiday.',
+                'starts_at.required' => 'Please enter when this holiday will start.',
+                'ends_at.required' => 'Please enter when this holiday will end.',
+            ]
+        );
+
         if ($request->get('holiday_id'))
         {
             $holiday = Holiday::find($request->get('holiday_id'));
-            $success_message = 'The holiday, '.$request->get('holiday_title').' was successfully updated';
+            $success_message = 'The holiday, '.$request->get('holiday_title').', was successfully updated.';
         } else {
             $holiday = new Holiday;
-            $success_message = 'The holiday, '.$request->get('holiday_title').' was successfully added';
+            $success_message = 'The holiday, '.$request->get('holiday_title').', was successfully added.';
         }
         $holiday->title = $request->get('holiday_title');
         $holiday->starts_at = date('Y-m-d H:i:s', strtotime($request->get('starts_at')));

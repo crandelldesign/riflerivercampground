@@ -15,6 +15,17 @@
             </div>
         @endif
 
+        @if (count($errors) > 0)
+            <div class="alert alert-danger alert-dismissible fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="post" action="{{url('/admin/holidays')}}" class="form-horizontal">
             <div class="box">
                 <div class="box-header with-border">
@@ -59,44 +70,42 @@
                 <h2 class="box-title">Upcoming Holidays</h2>
             </div>
             <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 30%">Title</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($holidays as $holiday)
-                            <tr>
-                            <form method="post" action="{{url('/admin/holidays')}}">
-                                <td><input type="text" class="form-control" name="holiday_title" placeholder="Holiday Title" value="{{$holiday->title}}"></td>
-                                <td>
-                                    <div class="input-group date">
-                                        <input class="form-control date" name="starts_at" type="text" placeholder="##/##/####" value="{{date('m/d/Y', strtotime($holiday->starts_at))}}">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group date">
-                                        <input class="form-control date" name="ends_at" type="text" placeholder="##/##/####" value="{{date('m/d/Y', strtotime($holiday->ends_at))}}">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="hidden" name="holiday_id" value="{{$holiday->id}}">
-                                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                                    <input class="btn btn-default" type="submit" value="Update">
-                                </td>
-                            </form>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%">Title</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($holidays as $holiday)
+                        <tr>
+                        <form method="post" action="{{url('/admin/holidays')}}">
+                            <td><input type="text" class="form-control" name="holiday_title" placeholder="Holiday Title" value="{{$holiday->title}}"></td>
+                            <td>
+                                <div class="input-group date">
+                                    <input class="form-control date" name="starts_at" type="text" placeholder="##/##/####" value="{{date('m/d/Y', strtotime($holiday->starts_at))}}">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group date">
+                                    <input class="form-control date" name="ends_at" type="text" placeholder="##/##/####" value="{{date('m/d/Y', strtotime($holiday->ends_at))}}">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="hidden" name="holiday_id" value="{{$holiday->id}}">
+                                <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                                <input class="btn btn-default" type="submit" value="Update">
+                            </td>
+                        </form>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
 

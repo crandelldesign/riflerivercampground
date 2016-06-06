@@ -8,6 +8,11 @@
         <ul class="sidebar-menu">
             <li class="header">Menu</li>
             <li class="{{(isset($active_page)) && ($active_page == 'home')?'active':''}}"><a href="{{url('/admin')}}">Home</a></li>
+            <li class="{{(isset($active_page)) && ($active_page == 'reservations')?'active':''}}"><a href="{{url('/admin/reservations')}}">Check Reservations</a></li>
+            <li class="header"></li>
+            <li class="{{(isset($active_page)) && ($active_page == 'camping')?'active':''}}"><a href="{{url('/admin/camping')}}">Edit Camp Sites</a></li>
+            <li class="{{(isset($active_page)) && ($active_page == 'cabins')?'active':''}}"><a href="{{url('/admin/cabins')}}">Edit Cabin Sites</a></li>
+            <li class="{{(isset($active_page)) && ($active_page == 'holidays')?'active':''}}"><a href="{{url('/admin/holidays')}}">Edit Holidays</a></li>
             <!--<li class="treeview {{(isset($active_page)) && ($active_page == 'products')?'active':''}}">
                 <a href="#"><span>Products</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
