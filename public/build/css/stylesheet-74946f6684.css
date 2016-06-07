@@ -8193,7 +8193,6 @@ a.img-modal {
 /* Subhead */
 .subhead {
   min-height: 250px;
-  overflow: hidden;
   text-align: center;
   margin-bottom: 20px; }
   .subhead h1 {
@@ -8201,6 +8200,25 @@ a.img-modal {
     color: #FFF; }
   .subhead .btn {
     margin: 0 10px 15px; }
+  .subhead .reservation {
+    padding: 20px;
+    margin: 0 20px;
+    background-color: #FFF;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+    @media (min-width: 1200px) {
+      .subhead .reservation {
+        margin: 0 auto;
+        max-width: 1200px; } }
+    .subhead .reservation > h2 {
+      margin-top: 0; }
+    .subhead .reservation .form-group {
+      margin-left: 5px;
+      margin-right: 5px; }
+      .subhead .reservation .form-group label {
+        margin-right: 5px; }
+    .subhead .reservation .btn {
+      margin-top: 0;
+      margin-bottom: 0; }
 
 /* Page */
 .page {

@@ -7,11 +7,43 @@
 @section('subhead')
 <div class="subhead">
     <h1>Peaceful Camping and Canoeing in beautiful Sterling, MI</h1>
-    <div>
+
+    <div class="reservation">
+        <h2>Schedule Your Vacation Today</h2>
+        <form class="form-inline" action="{{url('/subhead-reservation')}}" method="post">
+            <div class="form-group">
+                <label>From</label>
+                <div class="input-group date" id="subhead_starts_at">
+                    <input class="form-control date" name="starts_at" type="text" placeholder="{{date('n/j/Y',strtotime('Next Friday'))}}" value="{{old('starts_at')?old('starts_at'):''}}">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>To</label>
+                <div class="input-group date" id="subhead_ends_at">
+                    <input class="form-control date" name="ends_at" type="text" placeholder="{{date('n/j/Y',strtotime('Next Sunday'))}}" value="{{old('ends_at')?old('ends_at'):''}}">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>What</label>
+                <select name="what" class="form-control">
+                    <option value="camping">Camping</option>
+                    <option value="cabin">Cabin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                <button type="submit" class="btn btn-blue">Reserve Now</button>
+            </div>
+        </form>
+    </div>
+
+    <!--<div>
         <a href="{{url('/park-map')}}" class="btn btn-blue btn-lg">See Our Campground</a>
         <div class="clearfix visible-xs-block"></div>
         <a href="{{url('/contact')}}" class="btn btn-green btn-lg">Contact Us</a>
-    </div>
+    </div>-->
 </div>
 @stop
 
@@ -30,4 +62,27 @@
 <p>$5.00 off per person on all river trips. 5 or more rentals — 1/2 off!<br>
     <small>*rates valid Monday through Thursday</small></p>
 
+@stop
+
+@section('scripts')
+<script>
+    $(document).ready(function()
+    {
+        $('#subhead_starts_at').datetimepicker({
+            allowInputToggle: true,
+            format: 'M/D/YYYY'
+        });
+        $('#subhead_ends_at').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            allowInputToggle: true,
+            format: 'M/D/YYYY'
+        });
+        $("#subhead_starts_at").on("dp.change", function (e) {
+            $('#subhead_ends_at').data("DateTimePicker").minDate(e.date);
+        });
+        $("#subhead_ends_at").on("dp.change", function (e) {
+            $('#subhead_starts_at').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
 @stop

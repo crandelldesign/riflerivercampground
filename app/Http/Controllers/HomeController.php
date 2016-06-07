@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Mail;
 use Analytics;
 
+use riflerivercampground\CabinSite;
+use riflerivercampground\CampSite;
+use riflerivercampground\Holiday;
+use riflerivercampground\Reservation;
+
 class HomeController extends Controller
 {
     /*
@@ -21,6 +26,46 @@ class HomeController extends Controller
         $view->title = "Welcome to Rifle River Campground";
         $view->description = "Rifle River Campground & Canoe Livery, LLC is located in Sterling, MI along the beautiful Rifle River. We offer camping both modern and rustic camping with over 25 campsites directly on the river. Whether you prefer to enjoy to serenity of the river in one of our canoes, tubes or kayaks or simply want...";
         $view->active_page = 'home';
+        return $view;
+    }
+
+    public function postSubheadReservation(Request $request)
+    {
+        $starts_at = date('Y-m-d', strtotime($request->get('starts_at')));
+        $ends_at = date('Y-m-d', strtotime($request->get('ends_at')));
+        $what = $request->get('what');
+
+        return redirect('/reservations?starts_at='.$starts_at.'&ends_at='.$ends_at.'&what='.$what);
+    }
+
+    public function getReservations(Request $request)
+    {
+        $view = view('home.reservations');
+        $view->title = "Reservations";
+        $view->description = "Reserve a campsite or a cabin for your next vacation at Rifle River Campground in Sterling, MI.";
+        $view->active_page = 'reservations';
+
+        if ($request->get('starts_at')) {
+            $starts_at = strtotime($request->get('starts_at'));
+            $ends_at = strtotime($request->get('ends_at'));
+            $what = $request->get('what');
+
+            $existing_reseravtion_ids = Reservation::where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
+                ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what)->lists('reservationable_id')->toArray();
+            if ($what == 'camping') {
+                $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->get();
+            } else {
+                $available_spots = CabinSite::whereNotIn('id', $existing_reseravtion_ids)->get();
+            }
+
+            $view->starts_at = $starts_at;
+            $view->ends_at = $ends_at;
+            $view->what = $what;
+            $view->available_spots = $available_spots;
+        } else {
+            $view->available_spots = CampSite::get();
+        }
+
         return $view;
     }
 

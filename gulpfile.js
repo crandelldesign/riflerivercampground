@@ -51,6 +51,7 @@ elixir(function(mix) {
     mix.scripts(
         [
             'jquery-2.2.1.js',
+            'moment/moment.min.js',
             'bootstrap/bootstrap.js',
             'handlebars/handlebars.js',
             'eonasdan-bootstrap-datetimepicker/bootstrap-datetimepicker.js',

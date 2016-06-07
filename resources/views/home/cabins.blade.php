@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-<h1 >Cabins</h1>
+<h1>Cabins</h1>
 
 <p><img class="img-responsive" src="{{url('/img/cabins.jpg')}}" alt="cabins" width="1920" height="700"></p>
 
