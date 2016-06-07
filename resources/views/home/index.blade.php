@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('head')
+<meta name="p:domain_verify" content="b8938f241778236bd948d7ff51ef938b"/>
+@stop
+
 @section('subhead')
 <div class="subhead">
     <h1>Peaceful Camping and Canoeing in beautiful Sterling, MI</h1>
@@ -24,6 +28,6 @@
 <h2>Specials</h2>
 <h3>Midweek special</h3>
 <p>$5.00 off per person on all river trips. 5 or more rentals — 1/2 off!<br>
-    <small>*rates valid Monday through Friday</small></p>
+    <small>*rates valid Monday through Thursday</small></p>
 
 @stop
