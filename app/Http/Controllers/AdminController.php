@@ -107,6 +107,56 @@ class AdminController extends Controller
         return redirect('/admin/camping')->with('success',$success_message);
     }
 
+    public function getCabins()
+    {
+        $cabins = CabinSite::orderBy('site_id', 'asc')->get();
+
+        $view = view('admin.cabins');
+        $view->active_page = 'cabins';
+        $view->cabins = $cabins;
+        return $view;
+    }
+
+    public function postCabins(Request $request)
+    {
+
+        $validator = $this->validate(
+            $request,
+            [
+                'site_id' => 'required|unique:cabin_sites',
+                'price' => 'required',
+                'additional_adult_price' => 'required',
+                'additional_child_price' => 'required',
+                'max_capacity' => 'required',
+            ],
+            [
+                'site_id.required' => 'Please enter a site number.',
+                'site_id.unique' => 'This site number has already been used.',
+                'price.required' => 'Please enter a price.',
+                'additional_adult_price.required' => 'Please enter a price for additional adults.',
+                'additional_child_price.required' => 'Please enter a price for additional children.',
+                'max_capacity.required' => 'Please enter a max capacity.',
+            ]
+        );
+
+        if ($request->get('campsite_id'))
+        {
+            $cabinsite = CabinSite::find($request->get('cabin_id'));
+            $success_message = 'Cabin #'.$request->get('site_id').' was successfully updated.';
+        } else {
+            $cabinsite = new CabinSite;
+            $success_message = 'Cabin #'.$request->get('site_id').' was successfully added.';
+        }
+        $cabinsite->site_id = $request->get('site_id');
+        $cabinsite->price = $request->get('price');
+        $cabinsite->additional_adult_price = $request->get('additional_adult_price');
+        $cabinsite->additional_child_price = $request->get('additional_child_price');
+        $cabinsite->max_capacity = $request->get('max_capacity');
+        $cabinsite->save();
+
+        return redirect('/admin/cabins')->with('success',$success_message);
+    }
+
     public function getHolidays()
     {
         $holidays = Holiday::where('ends_at','>=',date("Y-m-d H:i:s"))->orderBy('starts_at', 'asc')->get();
