@@ -173,12 +173,12 @@ class AdminController extends Controller
         $validator = $this->validate(
             $request,
             [
-                'title' => 'required',
+                'holiday_title' => 'required',
                 'starts_at' => 'required',
                 'ends_at' => 'required'
             ],
             [
-                'title.required' => 'Please enter a title for this holiday.',
+                'holiday_title.required' => 'Please enter a title for this holiday.',
                 'starts_at.required' => 'Please enter when this holiday will start.',
                 'ends_at.required' => 'Please enter when this holiday will end.',
             ]
