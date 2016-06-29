@@ -69,6 +69,26 @@ class HomeController extends Controller
         return $view;
     }
 
+    public function postReservations(Request $request)
+    {
+        // Needs Validation
+
+        $starts_at = strtotime($request->get('starts_at'));
+        $ends_at = strtotime($request->get('ends_at'));
+        $what = $request->get('what');
+        $existing_reseravtion_ids = Reservation::where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
+            ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what)->lists('reservationable_id')->toArray();
+        if ($what == 'camping') {
+            $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->get();
+        } else {
+            $available_spots = CabinSite::whereNotIn('id', $existing_reseravtion_ids)->get();
+        }
+
+        if (empty($available_spots)) {
+            return back()->with('reservation_error', 'Your requested spot is unavilable')->withInput();
+        }
+    }
+
     public function getCamping()
     {
         $view = view('home.camping');
