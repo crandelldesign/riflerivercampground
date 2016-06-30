@@ -87,6 +87,8 @@ class HomeController extends Controller
         if (empty($available_spots)) {
             return back()->with('reservation_error', 'Your requested spot is unavilable')->withInput();
         }
+
+        
     }
 
     public function getCamping()
