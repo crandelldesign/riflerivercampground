@@ -88,7 +88,9 @@ class HomeController extends Controller
             return back()->with('reservation_error', 'Your requested spot is unavilable')->withInput();
         }
 
-        
+        $reservation = new Reservation;
+
+        print_r($request->all());
     }
 
     public function getCamping()

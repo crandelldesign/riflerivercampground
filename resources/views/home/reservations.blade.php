@@ -118,7 +118,7 @@
     </div>
     <div class="control-group form-group {{(count($errors) > 0 && $errors->first('message'))?'has-error':''}}">
         <label>Message:</label>
-        <textarea name="message" cols="40" rows="10" class="form-control" aria-required="true" aria-invalid="false">{{old('message')}}</textarea>
+        <textarea name="message" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{old('message')}}</textarea>
     </div>
     <div class="control-group form-group {{(count($errors) > 0 && $errors->first('name'))?'has-error':''}}">
         <div class="g-recaptcha" data-sitekey="6Le-iwwTAAAAAISVouN7lSSZJ6f_r2hL6rwDG0w3"></div>
