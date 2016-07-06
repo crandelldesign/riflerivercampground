@@ -88,9 +88,38 @@ class HomeController extends Controller
             return back()->with('reservation_error', 'Your requested spot is unavilable')->withInput();
         }
 
+        if ($what == 'camping') {
+            $reservationable = CampSite::where('site_id',$request->get('site_id'))->first();
+            $reservationable->reservationable_type = 'CampSite';
+
+            // Price Logic
+            $price = 100;
+        } else {
+            $reservationable = CabinSite::where('site_id',$request->get('site_id'))->first();
+            $reservationable->reservationable_type = 'CabinSite';
+
+            // Price Logic
+            $price = 100;
+        }
+
         $reservation = new Reservation;
+        $reservation->starts_at = date('Y-m-d H:i:s', strtotime($request->get('starts_at')));
+        $reservation->ends_at = date('Y-m-d H:i:s', strtotime($request->get('ends_at')));
+        $reservation->site_id = $request->get('site_id');
+        $reservation->reservationable_id = $reservationable->id;
+        $reservation->reservationable_type = $reservationable->id;
+        $reservation->adult_count = $request->get('adult_count');
+        $reservation->children_count = $request->get('children_count');
+        $reservation->price = $price;
+        $reservation->save();
+
+        print_r($reservationable);
+
+        echo '<br><br>';
 
         print_r($request->all());
+
+
     }
 
     public function getCamping()
