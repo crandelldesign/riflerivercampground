@@ -111,6 +111,11 @@ class HomeController extends Controller
         $reservation->adult_count = $request->get('adult_count');
         $reservation->children_count = $request->get('children_count');
         $reservation->price = $price;
+        $reservation->contact_name = $request->get('name');
+        $reservation->contact_email = $request->get('email');
+        $reservation->contact_phone = $request->get('phone');
+        $reservation->best_time = $request->get('best_time');
+        $reservation->comment = $request->get('comment');
         $reservation->save();
 
         print_r($reservationable);

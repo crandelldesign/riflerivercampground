@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label>From</label>
                 <div class="input-group date" id="starts_at">
-                    <input class="form-control date" name="starts_at" type="text" placeholder="##/##/####" value="{{old('starts_at')?old('starts_at'):isset($starts_at)?date('m/d/Y',$starts_at):''}}">
+                    <input class="form-control date" name="starts_at" type="text" placeholder="{{date('m/d/Y')}}" value="{{old('starts_at')?old('starts_at'):isset($starts_at)?date('m/d/Y',$starts_at):''}}">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label>To</label>
                 <div class="input-group date" id="ends_at">
-                    <input class="form-control date" name="ends_at" type="text" placeholder="##/##/####" value="{{old('ends_at')?old('ends_at'):isset($ends_at)?date('m/d/Y',$ends_at):''}}">
+                    <input class="form-control date" name="ends_at" type="text" placeholder="{{date('m/d/Y',strtotime('+3 days'))}}" value="{{old('ends_at')?old('ends_at'):isset($ends_at)?date('m/d/Y',$ends_at):''}}">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
@@ -116,9 +116,9 @@
             </div>
         </div>
     </div>
-    <div class="control-group form-group {{(count($errors) > 0 && $errors->first('message'))?'has-error':''}}">
-        <label>Message:</label>
-        <textarea name="message" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{old('message')}}</textarea>
+    <div class="control-group form-group {{(count($errors) > 0 && $errors->first('comment'))?'has-error':''}}">
+        <label>Comments:</label>
+        <textarea name="comment" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{old('comment')}}</textarea>
     </div>
     <div class="control-group form-group {{(count($errors) > 0 && $errors->first('name'))?'has-error':''}}">
         <div class="g-recaptcha" data-sitekey="6Le-iwwTAAAAAISVouN7lSSZJ6f_r2hL6rwDG0w3"></div>
