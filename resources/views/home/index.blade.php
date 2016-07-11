@@ -14,14 +14,14 @@
             <div class="form-group">
                 <label>From</label>
                 <div class="input-group date" id="subhead_starts_at">
-                    <input class="form-control date" name="starts_at" type="text" placeholder="{{date('n/j/Y',strtotime('Next Friday'))}}" value="{{old('starts_at')?old('starts_at'):''}}">
+                    <input class="form-control date" name="starts_at" type="text" placeholder="{{date('m/d/Y')}}" value="{{old('starts_at')?old('starts_at'):''}}">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
             <div class="form-group">
                 <label>To</label>
                 <div class="input-group date" id="subhead_ends_at">
-                    <input class="form-control date" name="ends_at" type="text" placeholder="{{date('n/j/Y',strtotime('Next Sunday'))}}" value="{{old('ends_at')?old('ends_at'):''}}">
+                    <input class="form-control date" name="ends_at" type="text" placeholder="{{date('m/d/Y',strtotime('+3 days'))}}" value="{{old('ends_at')?old('ends_at'):''}}">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
