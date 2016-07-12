@@ -135,6 +135,21 @@
 <script>
     $(document).ready(function()
     {
+        $('#starts_at').datetimepicker({
+            allowInputToggle: true,
+            format: 'M/D/YYYY'
+        });
+        $('#ends_at').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            allowInputToggle: true,
+            format: 'M/D/YYYY'
+        });
+        $("#starts_at").on("dp.change", function (e) {
+            $('#ends_at').data("DateTimePicker").minDate(e.date);
+        });
+        $("#ends_at").on("dp.change", function (e) {
+            $('#starts_at').data("DateTimePicker").maxDate(e.date);
+        });
         $('.select-what').on('change', function(event)
         {
             if ($(this).val() == 'camping')
