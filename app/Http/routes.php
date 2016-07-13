@@ -23,4 +23,5 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Route::controller('/admin', 'AdminController');
+Route::controller('/api', 'ApiController');
 Route::controller('/', 'HomeController');

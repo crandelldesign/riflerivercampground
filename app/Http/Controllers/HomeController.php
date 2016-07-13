@@ -52,7 +52,7 @@ class HomeController extends Controller
 
             $existing_reseravtion_ids = Reservation::where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
                 ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what)->lists('reservationable_id')->toArray();
-            if ($what == 'camping') {
+            if ($what == 'CampSite') {
                 $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->get();
             } else {
                 $available_spots = CabinSite::whereNotIn('id', $existing_reseravtion_ids)->get();
@@ -107,7 +107,7 @@ class HomeController extends Controller
         $reservation->ends_at = date('Y-m-d H:i:s', strtotime($request->get('ends_at')));
         $reservation->site_id = $request->get('site_id');
         $reservation->reservationable_id = $reservationable->id;
-        $reservation->reservationable_type = $reservationable->id;
+        $reservation->reservationable_type = $reservationable->reservationable_type;
         $reservation->adult_count = $request->get('adult_count');
         $reservation->children_count = $request->get('children_count');
         $reservation->price = $price;

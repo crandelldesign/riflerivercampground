@@ -35,8 +35,8 @@
             <div class="form-group">
                 <label>What</label>
                 <select name="what" class="form-control select-what">
-                    <option value="camping">Camping</option>
-                    <option value="cabin">Cabin</option>
+                    <option value="CampSite">Camping</option>
+                    <option value="CabinSite">Cabin</option>
                 </select>
             </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="col-sm-6 col-md-4">
             <div class="form-group">
                 <label>Site</label>
-                <select name="site_id" class="form-control select-type">
+                <select name="site_id" class="form-control select-type" id="site-id">
                     @foreach ($available_spots as $site)
                         <option value="{{$site->site_id}}">{{$site->site_id}}</option>
                     @endforeach
@@ -129,6 +129,12 @@
     </div>
 </form>
 
+<script id="site-template" type="text/x-handlebars-template">
+    @{{#each data}}
+    <option value="@{{site_id}}">@{{site_id}}</option>
+    @{{/each}}
+</script>
+
 @stop
 
 @section('scripts')
@@ -152,23 +158,43 @@
         });
         $('.select-what').on('change', function(event)
         {
-            if ($(this).val() == 'camping')
+            if ($(this).val() == 'CampSite')
             {
                 $('.type-col').show();
 
             } else {
                 $('.type-col').hide();
             }
+            checkAvailability();
         });
 
         $('.select-type').on('change', function(event)
         {
-
+            checkAvailability();
         });
 
         function checkAvailability()
         {
-            
+            $('#site-id').prop('disabled', true);
+            var availabilityObject =  new Object;
+            availabilityObject.starts_at = $("#starts_at input").val();
+            availabilityObject.ends_at = $("#ends_at input").val();
+            availabilityObject.what = $('.select-what').val();
+            availabilityObject.type = $('.select-type').val();
+            $.ajax({
+                url: '{{url("/api/reservation-availability")}}',
+                type: 'GET',
+                data: availabilityObject,
+                success: function(data) {
+                    console.log(data)
+                    var source = $("#site-template").html();
+                    var template = Handlebars.compile(source);
+                    var html = template({
+                        data: JSON.parse(data)
+                    });
+                    $('#site-id').html(html).prop('disabled', false);
+                }
+            });
         }
     });
 </script>

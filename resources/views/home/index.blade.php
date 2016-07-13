@@ -28,8 +28,8 @@
             <div class="form-group">
                 <label>What</label>
                 <select name="what" class="form-control">
-                    <option value="camping">Camping</option>
-                    <option value="cabin">Cabin</option>
+                    <option value="CampSite">Camping</option>
+                    <option value="CabinSite">Cabin</option>
                 </select>
             </div>
             <div class="form-group">
