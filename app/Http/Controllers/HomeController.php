@@ -75,10 +75,11 @@ class HomeController extends Controller
 
         $starts_at = strtotime($request->get('starts_at'));
         $ends_at = strtotime($request->get('ends_at'));
+        $days = intval(abs($ends_at - $starts_at)/86400);
         $what = $request->get('what');
         $existing_reseravtion_ids = Reservation::where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
             ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what)->lists('reservationable_id')->toArray();
-        if ($what == 'camping') {
+        if ($what == 'CampSite') {
             $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->get();
         } else {
             $available_spots = CabinSite::whereNotIn('id', $existing_reseravtion_ids)->get();
@@ -88,19 +89,27 @@ class HomeController extends Controller
             return back()->with('reservation_error', 'Your requested spot is unavilable')->withInput();
         }
 
-        if ($what == 'camping') {
+        if ($what == 'CampSite') {
             $reservationable = CampSite::where('site_id',$request->get('site_id'))->first();
             $reservationable->reservationable_type = 'CampSite';
 
             // Price Logic
-            $price = 100;
+            $adult_price = ($request->get('type') == 'rustic'?15:18);
+            $child_price = 3;
+            $price = ($adult_price * $request->get('adult_count')) + ($child_price * $request->get('children_count'));
         } else {
             $reservationable = CabinSite::where('site_id',$request->get('site_id'))->first();
             $reservationable->reservationable_type = 'CabinSite';
 
             // Price Logic
             $price = 100;
+            if($request->get('adult_count') > 4) {
+                $adult_price = 25;
+                $child_price = 5;
+                $price = ($adult_price * ($request->get('adult_count') - 4)) + ($child_price * ($request->get('children_count') - 4));
+            }
         }
+        $price = $price * $days;
 
         $reservation = new Reservation;
         $reservation->starts_at = date('Y-m-d H:i:s', strtotime($request->get('starts_at')));

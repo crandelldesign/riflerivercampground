@@ -36,23 +36,23 @@
         @endif
         <form action="{{url('/contact')}}" method="post">
             <div class="control-group form-group {{(count($errors) > 0 && $errors->first('name'))?'has-error':''}}">
-                <label>Name:</label>
+                <label>Name</label>
                 <input type="text" name="name" value="{{old('name')}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Name">
             </div>
             <div class="control-group form-group {{(count($errors) > 0 && $errors->first('email'))?'has-error':''}}">
-                <label>Email Address:</label>
+                <label>Email Address</label>
                 <input type="email" name="email" value="{{old('email')}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Email">
             </div>
             <div class="control-group form-group {{(count($errors) > 0 && $errors->first('phone'))?'has-error':''}}">
-                <label>Phone Number:</label>
+                <label>Phone Number</label>
                 <input type="tel" name="phone" value="{{old('phone')}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Phone Number">
             </div>
             <div class="control-group form-group">
-                <label>Best Time to Call:</label>
+                <label>Best Time to Call</label>
                 <input type="text" name="best_time" value="{{old('best_time')}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="ex: 5:00pm">
             </div>
             <div class="control-group form-group {{(count($errors) > 0 && $errors->first('message'))?'has-error':''}}">
-                <label>Message:</label>
+                <label>Message</label>
                 <textarea name="message" cols="40" rows="10" class="form-control" aria-required="true" aria-invalid="false">{{old('message')}}</textarea>
             </div>
             <div class="control-group form-group {{(count($errors) > 0 && $errors->first('name'))?'has-error':''}}">
