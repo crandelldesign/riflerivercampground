@@ -13,6 +13,12 @@
     <p>We're sorry but there are no sites available for your selection. Please make another selection.</p>
 </div>
 
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
 <form action="{{url('/reservations')}}" method="post">
     <div class="row">
         <div class="col-sm-6 col-md-4">

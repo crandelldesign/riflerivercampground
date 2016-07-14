@@ -94,19 +94,19 @@ class HomeController extends Controller
             $reservationable->reservationable_type = 'CampSite';
 
             // Price Logic
-            $adult_price = ($request->get('type') == 'rustic'?15:18);
-            $child_price = 3;
+            $adult_price = $reservationable->adult_price;
+            $child_price = $reservationable->child_price;
             $price = ($adult_price * $request->get('adult_count')) + ($child_price * $request->get('children_count'));
         } else {
             $reservationable = CabinSite::where('site_id',$request->get('site_id'))->first();
             $reservationable->reservationable_type = 'CabinSite';
 
             // Price Logic
-            $price = 100;
+            $price = $reservationable->price;
             $total_count = $request->get('adult_count') + $request->get('children_count');
             if($total_count > 4) {
-                $adult_price = 25;
-                $child_price = 5;
+                $adult_price = $reservationable->additional_adult_price;
+                $child_price = $reservationable->additional_child_price;
                 $additional_adult_count = $request->get('adult_count') - 4;
                 $additional_children_count = $request->get('children_count') - abs(min($additional_adult_count,0));
                 $price = $price + max($adult_price * $additional_adult_count,0) + max($child_price * $additional_children_count,0);
@@ -130,13 +130,27 @@ class HomeController extends Controller
         $reservation->comment = $request->get('comment');
         $reservation->save();
 
-        print_r($reservationable);
+        $reservation->reservationable = $reservationable;
 
-        echo '<br><br>';
+        $data = array(
+            'reservation' => $reservation,
+        );
 
-        print_r($request->all());
+        Mail::send('emails.reservation-admin', $data, function($message) use ($request)
+        {
+            $message->to('reservations@riflerivercampground.com', 'Rifle River Campground Reservations');
+            $message->replyTo($request->get('email'), $request->get('name'));
+            $message->subject('A Reservation has been made on the Rifle River Campground Website');
+        });
 
+        Mail::send('emails.reservation', $data, function($message) use ($request)
+        {
+            $message->to($request->get('email'), $request->get('name'));
+            $message->replyTo('reservations@riflerivercampground.com', 'Rifle River Campground Reservations');
+            $message->subject('Thank You for Your Reservation');
+        });
 
+        return redirect('/reservations')->with('status', 'Thank you for your reservation, we will get back to you as soon as possible.');
     }
 
     public function getCamping()
