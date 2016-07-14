@@ -77,7 +77,7 @@ class HomeController extends Controller
         $ends_at = strtotime($request->get('ends_at'));
         $days = intval(abs($ends_at - $starts_at)/86400);
         $what = $request->get('what');
-        $existing_reseravtion_ids = Reservation::where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
+        $existing_reseravtion_ids = Reservation::active()->where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
             ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what)->lists('reservationable_id')->toArray();
         if ($what == 'CampSite') {
             $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->get();
@@ -150,7 +150,7 @@ class HomeController extends Controller
             $message->subject('Thank You for Your Reservation');
         });
 
-        return redirect('/reservations')->with('status', 'Thank you for your reservation, we will get back to you as soon as possible.');
+        return redirect('/reservations')->with('status', 'Thank you for your reservation. Your confirmation number is '.$reservation->id.'. We will get back to you as soon as possible.');
     }
 
     public function getCamping()

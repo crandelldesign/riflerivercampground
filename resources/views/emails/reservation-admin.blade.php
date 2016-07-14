@@ -177,6 +177,7 @@
                   <tr>
                     <td style="text-align:left; padding-top: 15px; font-size:16px; line-height: 1.4">
                     <strong style="font-size:18px">Details Below</strong><br>
+                    <strong>Reservation ID:</strong> {{$reservation->id}}<br>
                     <strong>Your Stay:</strong> {{date('m/d/Y',strtotime($reservation->starts_at))}} - {{date('m/d/Y',strtotime($reservation->ends_at))}}<br>
                     @if ($reservation->reservationable_type == 'CampSite')
                         @if ($reservation->reservationable->type == 'rustic')

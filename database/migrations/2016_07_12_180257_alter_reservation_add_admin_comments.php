@@ -17,6 +17,8 @@ class AlterReservationAddAdminComments extends Migration
             $table->boolean('is_active')->default(1);
             $table->text('admin_comment')->nullable();
             $table->dateTime('date_approved')->nullable();
+            $table->boolean('is_checked_in');
+            $table->dateTime('check_in_date_time')->nullable();
         });
     }
 
@@ -32,6 +34,8 @@ class AlterReservationAddAdminComments extends Migration
             $table->dropColumn('is_active');
             $table->dropColumn('admin_comment');
             $table->dropColumn('date_approved');
+            $table->dropColumn('is_checked_in');
+            $table->dropColumn('check_in_date_time');
         });
     }
 }

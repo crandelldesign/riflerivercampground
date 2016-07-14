@@ -199,4 +199,22 @@ class AdminController extends Controller
 
         return redirect('/admin/holidays')->with('success',$success_message);
     }
+
+    public function getReservations()
+    {
+        $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->get();
+        foreach ($reservations as $reservation) {
+            if ($reservation->reservationable_type == 'CampSite') {
+                $reservationable = CampSite::find($reservation->reservationable_id);
+            } else {
+                $reservationable = CabinSite::find($reservation->reservationable_id);
+            }
+            $reservation->reservationable = $reservationable;
+        }
+
+        $view = view('admin.reservations');
+        $view->active_page = 'reservations';
+        $view->reservations = $reservations;
+        return $view;
+    }
 }
