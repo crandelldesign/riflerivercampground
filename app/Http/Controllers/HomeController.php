@@ -103,10 +103,13 @@ class HomeController extends Controller
 
             // Price Logic
             $price = 100;
-            if($request->get('adult_count') > 4) {
+            $total_count = $request->get('adult_count') + $request->get('children_count');
+            if($total_count > 4) {
                 $adult_price = 25;
                 $child_price = 5;
-                $price = ($adult_price * ($request->get('adult_count') - 4)) + ($child_price * ($request->get('children_count') - 4));
+                $additional_adult_count = $request->get('adult_count') - 4;
+                $additional_children_count = $request->get('children_count') - abs(min($additional_adult_count,0));
+                $price = $price + max($adult_price * $additional_adult_count,0) + max($child_price * $additional_children_count,0);
             }
         }
         $price = $price * $days;

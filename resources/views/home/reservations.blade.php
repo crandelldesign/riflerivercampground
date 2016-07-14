@@ -9,6 +9,10 @@
 
 <p>Book your reservation today.</p>
 
+<div class="alert alert-danger alert-no-sites" role="alert" style="{{count($available_spots) != 0?'display:none':''}}">
+    <p>We're sorry but there are no sites available for your selection. Please make another selection.</p>
+</div>
+
 <form action="{{url('/reservations')}}" method="post">
     <div class="row">
         <div class="col-sm-6 col-md-4">
@@ -35,12 +39,12 @@
             <div class="form-group">
                 <label>What</label>
                 <select name="what" class="form-control select-what">
-                    <option value="CampSite">Camping</option>
-                    <option value="CabinSite">Cabin</option>
+                    <option {{old('what')?old('what'):(isset($what) && $what == 'CampSite'?'selected':'')}} value="CampSite">Camping</option>
+                    <option {{old('what')?old('what'):(isset($what) && $what == 'CabinSite'?'selected':'')}} value="CabinSite">Cabin</option>
                 </select>
             </div>
         </div>
-        <div class="col-sm-6 col-md-4 type-col" style="{{(isset($what) && $what == 'cabin')?'display:none':''}}">
+        <div class="col-sm-6 col-md-4 type-col" style="{{(isset($what) && $what == 'CabinSite')?'display:none':''}}">
             <div class="form-group">
                 <label>Type</label>
                 <select name="type" class="form-control select-type">
@@ -52,7 +56,7 @@
         <div class="col-sm-6 col-md-4">
             <div class="form-group">
                 <label>Site</label>
-                <select name="site_id" class="form-control select-type" id="site-id">
+                <select name="site_id" class="form-control select-type" id="site-id" {{count($available_spots) == 0?'disabled':''}}>
                     @foreach ($available_spots as $site)
                         <option value="{{$site->site_id}}">{{$site->site_id}}</option>
                     @endforeach
@@ -78,7 +82,7 @@
             <div class="form-group">
                 <label>Children <small>(Ages 6-15)</small></label>
                 <select name="children_count" class="form-control">
-                    <option value="1">0</option>
+                    <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -187,13 +191,19 @@
                 type: 'GET',
                 data: availabilityObject,
                 success: function(data) {
-                    console.log(data)
+                    if (JSON.parse(data).length === 0) {
+                        $('.alert-no-sites').show();
+                    } else {
+                        $('.alert-no-sites').hide();
+                        $('#site-id').prop('disabled', false);
+                    }
+                    console.log(data);
                     var source = $("#site-template").html();
                     var template = Handlebars.compile(source);
                     var html = template({
                         data: JSON.parse(data)
                     });
-                    $('#site-id').html(html).prop('disabled', false);
+                    $('#site-id').html(html);
                 }
             });
         }
