@@ -200,7 +200,7 @@ class AdminController extends Controller
         return redirect('/admin/holidays')->with('success',$success_message);
     }
 
-    public function getReservations()
+    public function getReservations(Request $request, $edit = null, $reservation_id = null)
     {
         $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->get();
         foreach ($reservations as $reservation) {
