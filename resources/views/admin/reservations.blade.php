@@ -36,7 +36,7 @@
                         <td class="reservation-start">{{date("m/d/Y", strtotime($reservation->starts_at))}}</td>
                         <td class="reservation-end">{{date("m/d/Y", strtotime($reservation->ends_at))}}</td>
                         <td>${{$reservation->price}}</td>
-                        <td class="text-right"><a href="{{url('/admin/reservations/'.$reservation->id)}}" class="btn btn-xs btn-primary btn-see-more">See More</button>
+                        <td class="text-right"><a href="{{url('/admin/reservations/edit/'.$reservation->id)}}" class="btn btn-xs btn-primary btn-see-more">See More</button>
                        <!-- <td><button type="button" class="btn btn-xs btn-success delete-event" data-reservation="{{$reservation->id}}"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Approve</button></td>
                         <td><button type="button" class="btn btn-xs btn-danger delete-event" data-reservation="{{$reservation->id}}"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;Disable</button></td>-->
                     </tr>

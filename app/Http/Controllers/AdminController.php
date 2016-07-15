@@ -200,8 +200,14 @@ class AdminController extends Controller
         return redirect('/admin/holidays')->with('success',$success_message);
     }
 
-    public function getReservations(Request $request, $edit = null, $reservation_id = null)
+    public function getReservations(Request $request, $edit_add = null, $reservation_id = null)
     {
+        if ($edit_add == 'add') {
+            return $this->addReservation();
+        } elseif ($edit_add == 'edit' && $reservation_id) {
+            return $this->editReservation($reservation_id);
+        }
+
         $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->get();
         foreach ($reservations as $reservation) {
             if ($reservation->reservationable_type == 'CampSite') {
@@ -215,6 +221,30 @@ class AdminController extends Controller
         $view = view('admin.reservations');
         $view->active_page = 'reservations';
         $view->reservations = $reservations;
+        return $view;
+    }
+
+    protected function addReservation()
+    {
+
+    }
+
+    protected function editReservation($reservation_id)
+    {
+        $reservation = Reservation::find($reservation_id);
+        if (!$reservation)
+            return redirect('/reservations');
+        
+        if ($reservation->reservationable_type == 'CampSite') {
+            $available_spots = CampSite::get();
+        } else {
+            $available_spots = CabinSite::get();
+        }
+
+        $view = view('admin.edit-add-reservations');
+        $view->active_page = 'reservations';
+        $view->reservation = $reservation;
+        $view->available_spots = $available_spots;
         return $view;
     }
 }
