@@ -24,12 +24,16 @@ class ApiController extends Controller
         $what = $request->get('what');
         $type = $request->get('type');
 
-        $existing_reseravtion_ids = Reservation::where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
-            ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what)->lists('reservationable_id')->toArray();
+        $existing_reservation_ids = Reservation::where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
+            ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what);
+        if ($request->get('reservation_id') > 0) {
+            $existing_reservation_ids = $existing_reservation_ids->where('id','!=',$request->get('reservation_id'));
+        }
+        $existing_reservation_ids = $existing_reservation_ids->lists('reservationable_id')->toArray();
         if ($what == 'CampSite') {
-            $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->where('type',$type)->get();
+            $available_spots = CampSite::whereNotIn('id', $existing_reservation_ids)->where('type',$type)->get();
         } else {
-            $available_spots = CabinSite::whereNotIn('id', $existing_reseravtion_ids)->get();
+            $available_spots = CabinSite::whereNotIn('id', $existing_reservation_ids)->get();
         }
 
         return json_encode($available_spots);

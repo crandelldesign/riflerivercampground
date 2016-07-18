@@ -10,7 +10,7 @@
 
         <div class="text-center">
             <button class="btn btn-lg btn-primary">Check In</button>
-            <button class="btn btn-lg btn-success">Approve/Deny</button>
+            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#approve-deny-modal">Approve/Deny</button>
         </div>
 
     </div>
@@ -24,7 +24,7 @@
     </div>
     <div class="box-body">
 
-        <form action="{{url('/reservations')}}" method="post">
+        <form action="{{url('/reservations')}}" method="post" autocomplete="off">
             <p class="text-right"><button class="btn btn-primary">Save Changes</button></p>
             <div class="row">
                 <div class="col-sm-6 col-md-4">
@@ -137,10 +137,42 @@
                 <label>User Comments</label>
                 <textarea name="comment" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{(isset($reservation))?$reservation->comment:''}}</textarea>
             </div>
+
+            <hr>
+
+            <div class="control-group form-group {{(count($errors) > 0 && $errors->first('admin_comment'))?'has-error':''}}">
+                <label>Admin Comments</label>
+                <textarea name="admin_comment" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{(isset($reservation))?$reservation->admin_comment:''}}</textarea>
+            </div>
+
         </form>
 
     </div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="approve-deny-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Approve / Deny</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to approve or deny this reservation?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-success">Approve</button>
+                <button type="button" class="btn btn-danger">Deny</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script id="site-template" type="text/x-handlebars-template">
+    @{{#each data}}
+    <option value="@{{site_id}}">@{{site_id}}</option>
+    @{{/each}}
+</script>
 
 @stop
 @section('scripts')
@@ -187,6 +219,7 @@
             availabilityObject.ends_at = $("#ends_at input").val();
             availabilityObject.what = $('.select-what').val();
             availabilityObject.type = $('.select-type').val();
+            availabilityObject.reservation_id = {{(isset($reservation))?$reservation->id:0}}
             $.ajax({
                 url: '{{url("/api/reservation-availability")}}',
                 type: 'GET',

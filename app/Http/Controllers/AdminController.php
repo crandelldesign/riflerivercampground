@@ -207,7 +207,6 @@ class AdminController extends Controller
         } elseif ($edit_add == 'edit' && $reservation_id) {
             return $this->editReservation($reservation_id);
         }
-
         $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->get();
         foreach ($reservations as $reservation) {
             if ($reservation->reservationable_type == 'CampSite') {
