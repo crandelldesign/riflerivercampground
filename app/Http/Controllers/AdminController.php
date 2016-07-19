@@ -208,6 +208,10 @@ class AdminController extends Controller
             return $this->editReservation($reservation_id);
         }
         $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->get();
+        if($request->get('view') == 'disabled')
+        {
+            $reservations = Reservation::inactive()->get();
+        }
         foreach ($reservations as $reservation) {
             if ($reservation->reservationable_type == 'CampSite') {
                 $reservationable = CampSite::find($reservation->reservationable_id);
@@ -216,10 +220,15 @@ class AdminController extends Controller
             }
             $reservation->reservationable = $reservationable;
         }
+        $upcomming_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->count();
+        $rejected_reservations_count = Reservation::inactive()->count();
+        
 
         $view = view('admin.reservations');
         $view->active_page = 'reservations';
         $view->reservations = $reservations;
+        $view->upcomming_reservations_count = $upcomming_reservations_count;
+        $view->rejected_reservations_count = $rejected_reservations_count;
         return $view;
     }
 
