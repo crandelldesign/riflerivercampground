@@ -6,6 +6,7 @@ use riflerivercampground\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Mail;
 use Analytics;
+use Auth;
 
 use riflerivercampground\CabinSite;
 use riflerivercampground\CampSite;
@@ -37,5 +38,39 @@ class ApiController extends Controller
         }
 
         return json_encode($available_spots);
+    }
+
+    public function getApproveReservation(Request $request)
+    {
+        if (!$request->get('reservation_id'))
+            abort(400);
+
+        if (!Auth::check())
+            abort(400);
+
+        $reservation = Reservation::find($request->get('reservation_id'));
+        $reservation->is_approved = 1;
+        $reservation->date_approved = date('Y-m-d H:i:s');
+        $reservation->is_active = 1;
+        $reservation->save();
+
+        return json_encode($reservation);
+    }
+
+    public function getRejectReservation(Request $request)
+    {
+        if (!$request->get('reservation_id'))
+            abort(400);
+
+        if (!Auth::check())
+            abort(400);
+
+        $reservation = Reservation::find($request->get('reservation_id'));
+        $reservation->is_approved = 0;
+        $reservation->date_approved = null;
+        $reservation->is_active = 0;
+        $reservation->save();
+
+        return json_encode($reservation);
     }
 }

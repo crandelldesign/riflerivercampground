@@ -10,7 +10,7 @@
 
         <div class="text-center">
             <button class="btn btn-lg btn-primary">Check In</button>
-            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#approve-deny-modal">Approve/Deny</button>
+            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#approve-reject-modal">Approve / Reject</button>
         </div>
 
     </div>
@@ -150,19 +150,19 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="approve-deny-modal">
+<div class="modal fade" tabindex="-1" role="dialog" id="approve-reject-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Approve / Deny</h4>
+                <h4 class="modal-title">Approve / Reject</h4>
             </div>
             <div class="modal-body">
-                <p>Do you want to approve or deny this reservation?</p>
+                <p>Do you want to approve or reject this reservation?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-lg btn-success">Approve</button>
-                <button type="button" class="btn btn-danger">Deny</button>
+                <button type="button" class="btn btn-lg btn-success btn-approve">Approve</button>
+                <button type="button" class="btn btn-danger btn-reject">Reject</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -209,6 +209,34 @@
         $('.select-type').on('change', function(event)
         {
             checkAvailability();
+        });
+
+        $('.btn-approve').on('click', function(event)
+        {
+            var reservationObject =  new Object;
+            reservationObject.reservation_id = {{(isset($reservation))?$reservation->id:0}}
+            $.ajax({
+                url: '{{url("/api/approve-reservation")}}',
+                type: 'GET',
+                data: reservationObject,
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        });
+
+        $('.btn-reject').on('click', function(event)
+        {
+            var reservationObject =  new Object;
+            reservationObject.reservation_id = {{(isset($reservation))?$reservation->id:0}}
+            $.ajax({
+                url: '{{url("/api/reject-reservation")}}',
+                type: 'GET',
+                data: reservationObject,
+                success: function(data) {
+                    location.reload();
+                }
+            });
         });
 
         function checkAvailability()
