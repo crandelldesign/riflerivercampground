@@ -14,13 +14,14 @@
     <div class="box-body">
         <ul class="list-inline">
             <li><a href="?view=upcoming">Upcoming ({{$upcomming_reservations_count}})</a></li>
-            <li><a href="#">This Week</a></li>
-            <li><a href="#">Next Week</a></li>
-            <li><a href="#">Next Month</a></li>
-            <li><a href="#">Pending</a></li>
+            <li><a href="?view=today">Today ({{$today_reservations_count}})</a></li>
+            <li><a href="?view=thisweek">This Week ({{$thisweek_reservations_count}})</a></li>
+            <li><a href="?view=nextweek">Next Week ({{$nextweek_reservations_count}})</a></li>
+            <li><a href="?view=nextmonth">Next Month ({{$nextmonth_reservations_count}})</a></li>
+            <li><a href="?view=pending">Pending ({{$unapproved_reservations_count}})</a></li>
             <li><a href="?view=disabled">Rejected ({{$rejected_reservations_count}})</a></li>
-            <li><a href="#">All</a></li>
-            <li><a href="#">Old</a></li>
+            <li><a href="?view=old">Old ({{$old_reservations_count}})</a></li>
+            <li><a href="?view=all">All ({{$all_reservations_count}})</a></li>
         </ul>
         <div class="table-responsive">
             <table class="table table-striped reservations">

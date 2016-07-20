@@ -25,4 +25,24 @@ class Reservation extends Model
     {
         return $query->where('is_active', 0);
     }
+
+    /**
+     * Scope a query to only approved Reservations.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', 1);
+    }
+
+    /**
+     * Scope a query to only unapproved Reservations.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUnapproved($query)
+    {
+        return $query->where('is_approved', 0);
+    }
 }

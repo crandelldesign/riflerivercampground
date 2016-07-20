@@ -208,9 +208,37 @@ class AdminController extends Controller
             return $this->editReservation($reservation_id);
         }
         $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->get();
+        if($request->get('view') == 'today')
+        {
+            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+1 day')))->get();
+        }
+        if($request->get('view') == 'thisweek')
+        {
+            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->get();
+        }
+        if($request->get('view') == 'nextweek')
+        {
+            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday', strtotime('Next Sunday'))))->get();
+        }
+        if($request->get('view') == 'nextmonth')
+        {
+            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Month')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+2 Months')))->get();
+        }
+        if($request->get('view') == 'disabled')
+        {
+            $reservations = Reservation::active()->unapproved()->get();
+        }
         if($request->get('view') == 'disabled')
         {
             $reservations = Reservation::inactive()->get();
+        }
+        if($request->get('view') == 'old')
+        {
+            $reservations = Reservation::active()->where('starts_at','<=',date('Y-m-d H:i:s'))->get();
+        }
+        if($request->get('view') == 'all')
+        {
+            $reservations = Reservation::get();
         }
         foreach ($reservations as $reservation) {
             if ($reservation->reservationable_type == 'CampSite') {
@@ -221,14 +249,27 @@ class AdminController extends Controller
             $reservation->reservationable = $reservationable;
         }
         $upcomming_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->count();
+        $today_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+1 day')))->count();
+        $thisweek_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->count();
+        $nextweek_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday', strtotime('Next Sunday'))))->count();
+        $nextmonth_reservations_count =  Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Month')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+2 Months')))->count();
+        $unapproved_reservations_count = Reservation::active()->unapproved()->count();
         $rejected_reservations_count = Reservation::inactive()->count();
-        
+        $old_reservations_count = Reservation::active()->where('starts_at','<=',date('Y-m-d H:i:s'))->count();
+        $all_reservations_count = Reservation::count();
 
         $view = view('admin.reservations');
         $view->active_page = 'reservations';
         $view->reservations = $reservations;
         $view->upcomming_reservations_count = $upcomming_reservations_count;
+        $view->thisweek_reservations_count = $thisweek_reservations_count;
+        $view->today_reservations_count = $today_reservations_count;
+        $view->nextweek_reservations_count = $nextweek_reservations_count;
+        $view->nextmonth_reservations_count = $nextmonth_reservations_count;
+        $view->unapproved_reservations_count = $unapproved_reservations_count;
         $view->rejected_reservations_count = $rejected_reservations_count;
+        $view->old_reservations_count = $old_reservations_count;
+        $view->all_reservations_count = $all_reservations_count;
         return $view;
     }
 
