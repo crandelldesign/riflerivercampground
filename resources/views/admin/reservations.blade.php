@@ -12,6 +12,13 @@
         <h2 class="box-title">Reservations</h2>
     </div>
     <div class="box-body">
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
         <ul class="list-inline">
             <li><a href="?view=upcoming">Upcoming ({{$upcomming_reservations_count}})</a></li>
             <li><a href="?view=today">Today ({{$today_reservations_count}})</a></li>
@@ -22,6 +29,7 @@
             <li><a href="?view=disabled">Rejected ({{$rejected_reservations_count}})</a></li>
             <li><a href="?view=old">Old ({{$old_reservations_count}})</a></li>
             <li><a href="?view=all">All ({{$all_reservations_count}})</a></li>
+            <li><a href="{{url('/admin/reservations/add')}}">Add New Reservation</a></li>
         </ul>
         <div class="table-responsive">
             <table class="table table-striped reservations">

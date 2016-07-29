@@ -9,6 +9,7 @@
             <li class="header">Menu</li>
             <li class="{{(isset($active_page)) && ($active_page == 'home')?'active':''}}"><a href="{{url('/admin')}}">Home</a></li>
             <li class="{{(isset($active_page)) && ($active_page == 'reservations')?'active':''}}"><a href="{{url('/admin/reservations')}}">Check Reservations</a></li>
+            <li class="{{(isset($active_page)) && ($active_page == 'add-reservation')?'active':''}}"><a href="{{url('/admin/reservations/add')}}">Add New Reservation</a></li>
             <li class="header"></li>
             <li class="{{(isset($active_page)) && ($active_page == 'camping')?'active':''}}"><a href="{{url('/admin/camping')}}">Edit Camp Sites</a></li>
             <li class="{{(isset($active_page)) && ($active_page == 'cabins')?'active':''}}"><a href="{{url('/admin/cabins')}}">Edit Cabin Sites</a></li>

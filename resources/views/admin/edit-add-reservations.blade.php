@@ -24,7 +24,7 @@
     </div>
     <div class="box-body">
 
-        <form action="{{url('/reservations')}}" method="post" autocomplete="off">
+        <form action="{{url('/admin/reservation/'.((isset($reservation))?$reservation->id:0))}}" method="post" autocomplete="off">
             <p class="text-right"><button class="btn btn-primary">Save Changes</button></p>
             <div class="row">
                 <div class="col-sm-6 col-md-4">
@@ -144,6 +144,8 @@
                 <label>Admin Comments</label>
                 <textarea name="admin_comment" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{(isset($reservation))?$reservation->admin_comment:''}}</textarea>
             </div>
+
+            {!! csrf_field() !!}
 
         </form>
 

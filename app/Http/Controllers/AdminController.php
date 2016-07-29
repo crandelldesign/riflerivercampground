@@ -275,7 +275,10 @@ class AdminController extends Controller
 
     protected function addReservation()
     {
-
+        $view = view('admin.edit-add-reservations');
+        $view->active_page = 'add-reservation';
+        $view->available_spots = CampSite::get();
+        return $view;
     }
 
     protected function editReservation($reservation_id)
@@ -295,5 +298,75 @@ class AdminController extends Controller
         $view->reservation = $reservation;
         $view->available_spots = $available_spots;
         return $view;
+    }
+
+    public function postReservation(Request $request, $reservation_id)
+    {
+        $reservation = Reservation::find($reservation_id);
+        if (!$reservation) {
+            $reservation = new Reservation;
+        }
+        // Needs Validation
+
+        $starts_at = strtotime($request->get('starts_at'));
+        $ends_at = strtotime($request->get('ends_at'));
+        $days = intval(abs($ends_at - $starts_at)/86400);
+        $what = $request->get('what');
+        $existing_reseravtion_ids = Reservation::active()->where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
+            ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what)->lists('reservationable_id')->toArray();
+        if ($what == 'CampSite') {
+            $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->get();
+        } else {
+            $available_spots = CabinSite::whereNotIn('id', $existing_reseravtion_ids)->get();
+        }
+
+        if (empty($available_spots)) {
+            return back()->with('reservation_error', 'Your requested spot is unavilable')->withInput();
+        }
+
+        if ($what == 'CampSite') {
+            $reservationable = CampSite::where('site_id',$request->get('site_id'))->first();
+            $reservationable->reservationable_type = 'CampSite';
+
+            // Price Logic
+            $adult_price = $reservationable->adult_price;
+            $child_price = $reservationable->child_price;
+            $price = ($adult_price * $request->get('adult_count')) + ($child_price * $request->get('children_count'));
+        } else {
+            $reservationable = CabinSite::where('site_id',$request->get('site_id'))->first();
+            $reservationable->reservationable_type = 'CabinSite';
+
+            // Price Logic
+            $price = $reservationable->price;
+            $total_count = $request->get('adult_count') + $request->get('children_count');
+            if($total_count > 4) {
+                $adult_price = $reservationable->additional_adult_price;
+                $child_price = $reservationable->additional_child_price;
+                $additional_adult_count = $request->get('adult_count') - 4;
+                $additional_children_count = $request->get('children_count') - abs(min($additional_adult_count,0));
+                $price = $price + max($adult_price * $additional_adult_count,0) + max($child_price * $additional_children_count,0);
+            }
+        }
+        $price = $price * $days;
+
+        //$reservation = new Reservation;
+        $reservation->starts_at = date('Y-m-d H:i:s', strtotime($request->get('starts_at')));
+        $reservation->ends_at = date('Y-m-d H:i:s', strtotime($request->get('ends_at')));
+        $reservation->site_id = $request->get('site_id');
+        $reservation->reservationable_id = $reservationable->id;
+        $reservation->reservationable_type = $reservationable->reservationable_type;
+        $reservation->adult_count = $request->get('adult_count');
+        $reservation->children_count = $request->get('children_count');
+        $reservation->price = $price;
+        $reservation->contact_name = $request->get('name');
+        $reservation->contact_email = $request->get('email');
+        $reservation->contact_phone = $request->get('phone');
+        $reservation->best_time = $request->get('best_time');
+        $reservation->comment = $request->get('comment');
+        $reservation->save();
+
+        $reservation->reservationable = $reservationable;
+
+        return redirect('/admin/reservations')->with('status', 'The reservation has been saved. The confirmation number is '.$reservation->id.'.');
     }
 }
