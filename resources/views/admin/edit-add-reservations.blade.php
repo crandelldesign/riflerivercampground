@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 @section('content-header')
-    <h1>{{(isset($reservation))?'Reservation #'.$reservation->id:'Add Reservation'}}</h1>
+    @if (isset($reservation))
+    <h1>Reservation # {{$reservation->id}} - {{$reservation->contact_name}}</h1>
+    @else
+    <h1>Add Reservation</h1>
+    @endif
 @stop
 @section('content')
 
@@ -60,8 +64,9 @@
                     <div class="form-group">
                         <label>Type</label>
                         <select name="type" class="form-control select-type">
-                            <option value="rustic">Rustic</option>
-                            <option value="modern">Modern</option>
+                            <option value="rustic" {{$reservation->reservationable->type == 'rustic'?'selected':''}}>Rustic</option>
+                            <option value="electric" {{$reservation->reservationable->type == 'electric'?'selected':''}}>Electric</option>
+                            <option value="electric-water" {{$reservation->reservationable->type == 'electric-water'?'selected':''}}>Electric &amp; Water</option>
                         </select>
                     </div>
                 </div>

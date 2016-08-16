@@ -31,8 +31,8 @@ class HomeController extends Controller
 
     public function postSubheadReservation(Request $request)
     {
-        $starts_at = date('Y-m-d', strtotime($request->get('starts_at')));
-        $ends_at = date('Y-m-d', strtotime($request->get('ends_at')));
+        $starts_at = date('Y-m-d', strtotime($request->get('starts_at')?$request->get('starts_at'):'today'));
+        $ends_at = date('Y-m-d', strtotime($request->get('ends_at')?$request->get('ends_at'):'+2 Days'));
         $what = $request->get('what');
 
         return redirect('/reservations?starts_at='.$starts_at.'&ends_at='.$ends_at.'&what='.$what);

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use riflerivercampground\Http\Requests;
 use riflerivercampground\Http\Controllers\Controller;
 
+use Validator;
+
 use riflerivercampground\CabinSite;
 use riflerivercampground\CampSite;
 use riflerivercampground\Holiday;
@@ -75,10 +77,10 @@ class AdminController extends Controller
     public function postCamping(Request $request)
     {
 
-        $validator = $this->validate(
-            $request,
+        $data = $request->all();
+        $validator = Validator::make($data,
             [
-                'site_id' => 'required|unique:camp_sites',
+                //'site_id' => 'required|unique:camp_sites',
                 'adult_price' => 'required',
                 'child_price' => 'required',
             ],
@@ -90,15 +92,25 @@ class AdminController extends Controller
             ]
         );
 
+        $validator->sometimes(['site_id'], 'required|unique:camp_sites', function($data) {
+            return !$data->get('campsite_id');
+        });
+
+        if ($validator->fails()) {
+            return redirect('/admin/camping')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         if ($request->get('campsite_id'))
         {
-            $campsite = CampSite::find($request->get('campsite_id'));
+            $campsite = CampSite::where('site_id',$request->get('campsite_id'))->first();
             $success_message = 'Campsite #'.$request->get('site_id').' was successfully updated.';
         } else {
             $campsite = new CampSite;
             $success_message = 'Campsite #'.$request->get('site_id').' was successfully added.';
         }
-        $campsite->site_id = $request->get('site_id');
+        $campsite->site_id = strtoupper($request->get('site_id'));
         $campsite->type = $request->get('type');
         $campsite->adult_price = $request->get('adult_price');
         $campsite->child_price = $request->get('child_price');
@@ -120,10 +132,10 @@ class AdminController extends Controller
     public function postCabins(Request $request)
     {
 
-        $validator = $this->validate(
-            $request,
+        $data = $request->all();
+        $validator = Validator::make($data,
             [
-                'site_id' => 'required|unique:cabin_sites',
+                //'site_id' => 'required|unique:cabin_sites',
                 'price' => 'required',
                 'additional_adult_price' => 'required',
                 'additional_child_price' => 'required',
@@ -139,7 +151,17 @@ class AdminController extends Controller
             ]
         );
 
-        if ($request->get('campsite_id'))
+        $validator->sometimes(['site_id'], 'required|unique:camp_sites', function($data) {
+            return !$data->get('campsite_id');
+        });
+
+        if ($validator->fails()) {
+            return redirect('/admin/cabins')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        if ($request->get('cabin_id'))
         {
             $cabinsite = CabinSite::find($request->get('cabin_id'));
             $success_message = 'Cabin #'.$request->get('site_id').' was successfully updated.';
@@ -147,7 +169,7 @@ class AdminController extends Controller
             $cabinsite = new CabinSite;
             $success_message = 'Cabin #'.$request->get('site_id').' was successfully added.';
         }
-        $cabinsite->site_id = $request->get('site_id');
+        $cabinsite->site_id = strtoupper($request->get('site_id'));
         $cabinsite->price = $request->get('price');
         $cabinsite->additional_adult_price = $request->get('additional_adult_price');
         $cabinsite->additional_child_price = $request->get('additional_child_price');
@@ -292,6 +314,13 @@ class AdminController extends Controller
         } else {
             $available_spots = CabinSite::get();
         }
+
+        if ($reservation->reservationable_type == 'CampSite') {
+            $reservationable = CampSite::find($reservation->reservationable_id);
+        } else {
+            $reservationable = CabinSite::find($reservation->reservationable_id);
+        }
+        $reservation->reservationable = $reservationable;
 
         $view = view('admin.edit-add-reservations');
         $view->active_page = 'reservations';

@@ -45,7 +45,7 @@
                     <tbody>
                         <form method="post" action="{{url('/admin/cabins')}}" class="form-horizontal">
                         <tr>
-                            <td><input name="site_id" class="form-control" value="{{old('site_id')}}"></td>
+                            <td><input name="site_id" class="form-control" value="{{old('site_id')}}" maxlength="7"></td>
                             <td><input name="price" class="form-control initial-price" value="{{old('price')?number_format(old('price'),2):'100.00'}}" placeholder="0.00"></td>
                             <td><input name="additional_adult_price" class="form-control adult-price" value="{{old('additional_adult_price')?number_format(old('additional_adult_price'),2):'25.00'}}" placeholder="0.00"></td>
                             <td><input name="additional_child_price" class="form-control child-price" value="{{old('additional_adult_price')?number_format(old('additional_child_price'),2):'5.00'}}" placeholder="0.00"></td>
@@ -59,7 +59,7 @@
                         @foreach ($cabins as $cabin)
                         <form method="post" action="{{url('/admin/cabins')}}" class="form-horizontal">
                         <tr>
-                            <td><input name="site_id" class="form-control" value="{{$cabin->site_id}}"></td>
+                            <td><input name="site_id" class="form-control" value="{{$cabin->site_id}}" maxlength="7"></td>
                             <td><input name="price" class="form-control initial-price" value="{{number_format($cabin->price,2)}}" placeholder="0.00"></td>
                             <td><input name="additional_adult_price" class="form-control adult-price" value="{{number_format($cabin->additional_adult_price,2)}}" placeholder="0.00"></td>
                             <td><input name="additional_child_price" class="form-control child-price" value="{{number_format($cabin->additional_child_price,2)}}" placeholder="0.00"></td>

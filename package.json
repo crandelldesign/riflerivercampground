@@ -1,8 +1,8 @@
 {
   "private": true,
   "devDependencies": {
-    "bootstrap-sass": "^3.0.0",
-    "eonasdan-bootstrap-datetimepicker": "^4.15.35",
+    "bootstrap-sass": "^3.3.7",
+    "eonasdan-bootstrap-datetimepicker": "git+https://github.com/Eonasdan/bootstrap-datetimepicker.git",
     "font-awesome": "^4.5.0",
     "gulp": "^3.9.1",
     "handlebars": "^4.0.5",

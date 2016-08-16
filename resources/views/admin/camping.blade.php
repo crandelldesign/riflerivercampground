@@ -43,11 +43,12 @@
                     <tbody>
                         <form method="post" action="{{url('/admin/camping')}}" class="form-horizontal">
                         <tr>
-                            <td><input name="site_id" class="form-control" value="{{old('site_id')}}"></td>
+                            <td><input name="site_id" class="form-control" value="{{old('site_id')}}" maxlength="7"></td>
                             <td>
                                 <select name="type" class="form-control site-type">
                                     <option value="rustic" {{old('type') == 'rustic'?'selected':''}}>Rustic</option>
-                                    <option value="modern" {{old('type') == 'modern'?'selected':''}}>Modern</option>
+                                    <option value="electric" {{old('type') == 'electric'?'selected':''}}>Electric</option>
+                                    <option value="electric-water" {{old('type') == 'electric-water'?'selected':''}}>Electric &amp; Water</option>
                                 </select>
                             </td>
                             <td><input name="adult_price" class="form-control adult-price" value="{{old('adult_price')?number_format(old('adult_price'),2):'15.00'}}" placeholder="0.00"></td>
@@ -61,11 +62,12 @@
                         @foreach ($campsites as $campsite)
                         <form method="post" action="{{url('/admin/camping')}}" class="form-horizontal">
                         <tr>
-                            <td><input name="site_id" class="form-control" value="{{$campsite->site_id}}"></td>
+                            <td><input name="site_id" class="form-control" value="{{$campsite->site_id}}" maxlength="7"></td>
                             <td>
-                                <select name="type" class="form-control">
+                                <select name="type" class="form-control site-type">
                                     <option value="rustic" {{$campsite->type == 'rustic'?'selected':''}}>Rustic</option>
-                                    <option value="modern" {{$campsite->type == 'modern'?'selected':''}}>Modern</option>
+                                    <option value="electric" {{$campsite->type == 'electric'?'selected':''}}>Electric</option>
+                                    <option value="electric-water" {{$campsite->type == 'electric-water'?'selected':''}}>Electric &amp; Water</option>
                                 </select>
                             </td>
                             <td><input name="adult_price" class="form-control adult-price" value="{{number_format($campsite->adult_price,2)}}" placeholder="0.00"></td>

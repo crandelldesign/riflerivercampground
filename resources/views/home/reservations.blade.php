@@ -55,7 +55,8 @@
                 <label>Type</label>
                 <select name="type" class="form-control select-type">
                     <option value="rustic">Rustic</option>
-                    <option value="modern">Modern</option>
+                    <option value="electric">Electric</option>
+                    <option value="electric-water">Electric &amp; Water</option>
                 </select>
             </div>
         </div>
