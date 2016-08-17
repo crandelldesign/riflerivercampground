@@ -35,7 +35,7 @@
                                 <a href="{{url('/')}}/admin/change-password" class="btn btn-default btn-flat">Change Password</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{url('/')}}/logout" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="{{url('/')}}/auth/logout" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>

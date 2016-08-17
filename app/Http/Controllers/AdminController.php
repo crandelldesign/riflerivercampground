@@ -246,9 +246,9 @@ class AdminController extends Controller
         {
             $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Month')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+2 Months')))->get();
         }
-        if($request->get('view') == 'disabled')
+        if($request->get('view') == 'pending')
         {
-            $reservations = Reservation::active()->unapproved()->get();
+            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->unapproved()->get();
         }
         if($request->get('view') == 'disabled')
         {
@@ -275,7 +275,7 @@ class AdminController extends Controller
         $thisweek_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->count();
         $nextweek_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday', strtotime('Next Sunday'))))->count();
         $nextmonth_reservations_count =  Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Month')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+2 Months')))->count();
-        $unapproved_reservations_count = Reservation::active()->unapproved()->count();
+        $unapproved_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->unapproved()->count();
         $rejected_reservations_count = Reservation::inactive()->count();
         $old_reservations_count = Reservation::active()->where('starts_at','<=',date('Y-m-d H:i:s'))->count();
         $all_reservations_count = Reservation::count();
@@ -397,5 +397,20 @@ class AdminController extends Controller
         $reservation->reservationable = $reservationable;
 
         return redirect('/admin/reservations')->with('status', 'The reservation has been saved. The confirmation number is '.$reservation->id.'.');
+    }
+
+    public function getCheckIn($reservation_id)
+    {
+        $reservation = Reservation::find($reservation_id);
+        if (!$reservation) {
+            return redirect('/admin/reservations')->with('error', 'There was an error checking in that reservation.');
+        }
+        $reservation->is_paid = 1;
+        $reservation->date_approved = date('Y-m-d H:i:s');
+        $reservation->is_checked_in = 1;
+        $reservation->check_in_date_time = date('Y-m-d H:i:s');
+        $reservation->save();
+
+        return redirect('/admin/reservations/edit/'.$reservation->id)->with('status', 'The reservation has been checked in.');
     }
 }

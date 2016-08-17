@@ -8,12 +8,18 @@
 @stop
 @section('content')
 
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
 @if (isset($reservation))
 <div class="box">
     <div class="box-body">
 
         <div class="text-center">
-            <button class="btn btn-lg btn-primary">Check In</button>
+            <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#check-in-modal">Check{{$reservation->is_checked_in?'ed':''}} In</button>
             <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#approve-reject-modal">Approve / Reject</button>
         </div>
 
@@ -174,6 +180,29 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+@if(isset($reservation))
+<div class="modal fade" tabindex="-1" role="dialog" id="check-in-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Check In Guest</h4>
+            </div>
+            <div class="modal-body">
+                @if(!$reservation->is_paid)
+                    <div class="alert alert-warning text-center" role="alert">
+                        This guest has not fully paid.<br>
+                        They owe <strong>${{$reservation->price - $reservation->down_payment}}</strong>.<br>
+                        Check in the guest after they have paid in full.
+                    </div>
+                @endif
+                <a href="{{url('/admin/check-in/'.$reservation->id)}}" class="btn btn-lg btn-primary btn-block">Check In</a>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 <script id="site-template" type="text/x-handlebars-template">
     @{{#each data}}

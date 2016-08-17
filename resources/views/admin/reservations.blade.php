@@ -45,6 +45,7 @@
                     <th>End</th>
                     <th>Price</th>
                     <th>Type</th>
+                    <th>Status</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -65,6 +66,15 @@
                         @else
                             Cabin
                         @endif</td>
+                        <td>
+                            @if($reservation->is_checked_in)
+                                <span class="label label-success">Checked In</span>
+                            @elseif($reservation->is_approved)
+                                <span class="label label-success">Checked In</span>
+                            @else
+                                <span class="label label-warning">Pending</span>
+                            @endif
+                        </td>
                         <td class="text-right"><a href="{{url('/admin/reservations/edit/'.$reservation->id)}}" class="btn btn-xs btn-primary btn-see-more">See More</button>
                        <!-- <td><button type="button" class="btn btn-xs btn-success delete-event" data-reservation="{{$reservation->id}}"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Approve</button></td>
                         <td><button type="button" class="btn btn-xs btn-danger delete-event" data-reservation="{{$reservation->id}}"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;Disable</button></td>-->
@@ -87,6 +97,7 @@
             // Disable initial sorting
             "aaSorting": [],
             "aoColumns": [
+                null,
                 null,
                 null,
                 null,
