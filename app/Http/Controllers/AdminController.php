@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use riflerivercampground\Http\Requests;
 use riflerivercampground\Http\Controllers\Controller;
 
+use URL;
 use Validator;
 
 use riflerivercampground\CabinSite;
@@ -299,7 +300,7 @@ class AdminController extends Controller
     {
         $view = view('admin.edit-add-reservations');
         $view->active_page = 'add-reservation';
-        $view->available_spots = CampSite::get();
+        $view->available_spots = CampSite::where('type','rustic')->get();
         return $view;
     }
 
@@ -335,7 +336,33 @@ class AdminController extends Controller
         if (!$reservation) {
             $reservation = new Reservation;
         }
-        // Needs Validation
+        $data = $request->all();
+        $validator = Validator::make($data,
+            [
+                'starts_at' => 'required',
+                'ends_at' => 'required',
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required'
+            ],
+            [
+                'start_at.required' => 'Please enter a starting date.',
+                'ends_at.required' => 'Please enter an ending date.',
+                'name.required' => 'Please enter your name.',
+                'email.required' => 'Please enter your email.',
+                'phone.required' => 'Please enter your phone number.'
+            ]
+        );
+
+        /*$validator->sometimes(['site_id'], 'required|unique:camp_sites', function($data) {
+            return !$data->get('campsite_id');
+        });*/
+
+        if ($validator->fails()) {
+            return redirect(URL::previous())
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $starts_at = strtotime($request->get('starts_at'));
         $ends_at = strtotime($request->get('ends_at'));

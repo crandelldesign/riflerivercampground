@@ -14,6 +14,17 @@
     </div>
 @endif
 
+@if (count($errors) > 0)
+    <div class="alert alert-danger alert-dismissible fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 @if (isset($reservation))
 <div class="box">
     <div class="box-body">
@@ -41,7 +52,7 @@
                     <div class="form-group">
                         <label>From</label>
                         <div class="input-group date" id="starts_at">
-                            <input class="form-control date" name="starts_at" type="text" placeholder="{{date('m/d/Y')}}" value="{{(isset($reservation))?date('m/d/Y',strtotime($reservation->starts_at)):''}}">
+                            <input class="form-control date" name="starts_at" type="text" placeholder="{{date('m/d/Y')}}" value="{{old('starts_at')?old('starts_at'):((isset($reservation))?date('m/d/Y',strtotime($reservation->starts_at)):'')}}">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
@@ -50,7 +61,7 @@
                     <div class="form-group">
                         <label>To</label>
                         <div class="input-group date" id="ends_at">
-                            <input class="form-control date" name="ends_at" type="text" placeholder="{{date('m/d/Y',strtotime('+3 days'))}}" value="{{(isset($reservation))?date('m/d/Y',strtotime($reservation->ends_at)):''}}">
+                            <input class="form-control date" name="ends_at" type="text" placeholder="{{date('m/d/Y',strtotime('+3 days'))}}" value="{{old('ends_at')?old('ends_at'):((isset($reservation))?date('m/d/Y',strtotime($reservation->ends_at)):'')}}">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
@@ -70,16 +81,16 @@
                     <div class="form-group">
                         <label>Type</label>
                         <select name="type" class="form-control select-type">
-                            <option value="rustic" {{$reservation->reservationable->type == 'rustic'?'selected':''}}>Rustic</option>
-                            <option value="electric" {{$reservation->reservationable->type == 'electric'?'selected':''}}>Electric</option>
-                            <option value="electric-water" {{$reservation->reservationable->type == 'electric-water'?'selected':''}}>Electric &amp; Water</option>
+                            <option value="rustic" {{isset($reservation) && $reservation->reservationable->type == 'rustic'?'selected':''}}>Rustic</option>
+                            <option value="electric" {{isset($reservation) && $reservation->reservationable->type == 'electric'?'selected':''}}>Electric</option>
+                            <option value="electric-water" {{isset($reservation) && $reservation->reservationable->type == 'electric-water'?'selected':''}}>Electric &amp; Water</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
                         <label>Site</label>
-                        <select name="site_id" class="form-control select-type" id="site-id" {{count($available_spots) == 0?'disabled':''}}>
+                        <select name="site_id" class="form-control" id="site-id" {{count($available_spots) == 0?'disabled':''}}>
                             @foreach ($available_spots as $site)
                                 <option value="{{$site->site_id}}" {{(isset($reservation) && $reservation->site_id == $site->site_id)?'selected':''}}>{{$site->site_id}}</option>
                             @endforeach
@@ -120,13 +131,13 @@
                 <div class="col-sm-6">
                     <div class="control-group form-group {{(count($errors) > 0 && $errors->first('name'))?'has-error':''}}">
                         <label>Name</label>
-                        <input type="text" name="name" value="{{(isset($reservation))?$reservation->contact_name:''}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Name">
+                        <input type="text" name="name" value="{{old('name')?old('name'):((isset($reservation))?$reservation->contact_name:'')}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Name">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="control-group form-group {{(count($errors) > 0 && $errors->first('email'))?'has-error':''}}">
                         <label>Email Address</label>
-                        <input type="email" name="email" value="{{(isset($reservation))?$reservation->contact_email:''}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Email">
+                        <input type="email" name="email" value="{{old('email')?old('email'):((isset($reservation))?$reservation->contact_email:''}})" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Email">
                     </div>
                 </div>
             </div>
@@ -134,26 +145,26 @@
                 <div class="col-sm-6">
                     <div class="control-group form-group {{(count($errors) > 0 && $errors->first('phone'))?'has-error':''}}">
                         <label>Phone Number</label>
-                        <input type="tel" name="phone" value="{{(isset($reservation))?$reservation->contact_phone:''}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Phone Number">
+                        <input type="tel" name="phone" value="{{old('phone')?old('phone'):((isset($reservation))?$reservation->contact_phone:'')}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Phone Number">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="control-group form-group">
                         <label>Best Time to Call</label>
-                        <input type="text" name="best_time" value="{{(isset($reservation))?$reservation->best_time:''}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="ex: 5:00pm">
+                        <input type="text" name="best_time" value="{{old('best_time')?old('best_time'):((isset($reservation))?$reservation->best_time:'')}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="ex: 5:00pm">
                     </div>
                 </div>
             </div>
             <div class="control-group form-group {{(count($errors) > 0 && $errors->first('comment'))?'has-error':''}}">
                 <label>User Comments</label>
-                <textarea name="comment" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{(isset($reservation))?$reservation->comment:''}}</textarea>
+                <textarea name="comment" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{old('comment')?old('comment'):((isset($reservation))?$reservation->comment:'')}}</textarea>
             </div>
 
             <hr>
 
             <div class="control-group form-group {{(count($errors) > 0 && $errors->first('admin_comment'))?'has-error':''}}">
                 <label>Admin Comments</label>
-                <textarea name="admin_comment" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{(isset($reservation))?$reservation->admin_comment:''}}</textarea>
+                <textarea name="admin_comment" cols="40" rows="3" class="form-control" aria-required="true" aria-invalid="false">{{old('admin_comment')?old('admin_comment'):((isset($reservation))?$reservation->admin_comment:'')}}</textarea>
             </div>
 
             {!! csrf_field() !!}

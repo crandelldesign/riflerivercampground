@@ -19,6 +19,17 @@
     </div>
 @endif
 
+@if (count($errors) > 0)
+    <div class="alert alert-danger alert-dismissible fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form action="{{url('/reservations')}}" method="post">
     <div class="row">
         <div class="col-sm-6 col-md-4">
@@ -63,7 +74,7 @@
         <div class="col-sm-6 col-md-4">
             <div class="form-group">
                 <label>Site</label>
-                <select name="site_id" class="form-control select-type" id="site-id" {{count($available_spots) == 0?'disabled':''}}>
+                <select name="site_id" class="form-control" id="site-id" {{count($available_spots) == 0?'disabled':''}}>
                     @foreach ($available_spots as $site)
                         <option value="{{$site->site_id}}">{{$site->site_id}}</option>
                     @endforeach
