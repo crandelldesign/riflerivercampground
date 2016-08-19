@@ -175,10 +175,10 @@
         });
         $("#starts_at").on("dp.change", function (e) {
             $('#ends_at').data("DateTimePicker").minDate(e.date);
-            $('#subhead_ends_at input').val(moment($("#subhead_starts_at input").val(),'M/D/YYYY').add(2,'days').format('M/D/YYYY'));
+            checkMinimumStay($(this).find('input').val());
         });
         $("#ends_at").on("dp.change", function (e) {
-            $('#starts_at').data("DateTimePicker").maxDate(e.date);
+            //$('#starts_at').data("DateTimePicker").maxDate(e.date);
         });
         $('.select-what').on('change', function(event)
         {
@@ -227,5 +227,9 @@
             });
         }
     });
+    function updatesEndsAt(days)
+    {
+        $('#ends_at input').val(moment($("#starts_at input").val(),'M/D/YYYY').add(days,'days').format('M/D/YYYY'));
+    }
 </script>
 @stop

@@ -78,7 +78,7 @@
             format: 'M/D/YYYY'
         });
         $("#subhead_starts_at").on("dp.change", function (e) {
-            checkMinimumStay($("#subhead_starts_at input").val());
+            checkMinimumStay($(this).find('input').val());
             $('#subhead_ends_at').data("DateTimePicker").minDate(e.date);
             
         });
