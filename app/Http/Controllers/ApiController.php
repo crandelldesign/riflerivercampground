@@ -32,9 +32,9 @@ class ApiController extends Controller
         }
         $existing_reservation_ids = $existing_reservation_ids->lists('reservationable_id')->toArray();
         if ($what == 'CampSite') {
-            $available_spots = CampSite::whereNotIn('id', $existing_reservation_ids)->where('type',$type)->get();
+            $available_spots = CampSite::whereNotIn('id', $existing_reservation_ids)->where('type',$type)->get()->sortBy('site_id', SORT_REGULAR, false);
         } else {
-            $available_spots = CabinSite::whereNotIn('id', $existing_reservation_ids)->get();
+            $available_spots = CabinSite::whereNotIn('id', $existing_reservation_ids)->get()->sortBy('site_id', SORT_REGULAR, false);
         }
 
         return json_encode($available_spots);

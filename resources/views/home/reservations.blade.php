@@ -73,7 +73,7 @@
         </div>
         <div class="col-sm-6 col-md-4">
             <div class="form-group">
-                <label>Site</label>
+                <label>Sites Available</label>
                 <select name="site_id" class="form-control" id="site-id" {{count($available_spots) == 0?'disabled':''}}>
                     @foreach ($available_spots as $site)
                         <option value="{{$site->site_id}}">{{$site->site_id}}</option>

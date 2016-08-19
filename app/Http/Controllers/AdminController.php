@@ -67,7 +67,7 @@ class AdminController extends Controller
     
     public function getCamping()
     {
-        $campsites = CampSite::orderBy('site_id', 'asc')->get();
+        $campsites = CampSite::orderBy('site_id', 'asc')->get()->sortBy('site_id', SORT_REGULAR, false);
 
         $view = view('admin.camping');
         $view->active_page = 'camping';
@@ -122,7 +122,7 @@ class AdminController extends Controller
 
     public function getCabins()
     {
-        $cabins = CabinSite::orderBy('site_id', 'asc')->get();
+        $cabins = CabinSite::orderBy('site_id', 'asc')->get()->sortBy('site_id', SORT_REGULAR, false);
 
         $view = view('admin.cabins');
         $view->active_page = 'cabins';

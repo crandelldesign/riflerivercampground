@@ -56,9 +56,9 @@ class HomeController extends Controller
             $existing_reseravtion_ids = Reservation::where('starts_at','>=',date("Y-m-d H:i:s", $starts_at))
                 ->where('starts_at','<',date("Y-m-d H:i:s", $ends_at))->where('reservationable_type',$what)->lists('reservationable_id')->toArray();
             if ($what == 'CampSite') {
-                $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->where('type','rustic')->get();
+                $available_spots = CampSite::whereNotIn('id', $existing_reseravtion_ids)->where('type','rustic')->get()->sortBy('site_id', SORT_REGULAR, false);
             } else {
-                $available_spots = CabinSite::whereNotIn('id', $existing_reseravtion_ids)->get();
+                $available_spots = CabinSite::whereNotIn('id', $existing_reseravtion_ids)->get()->sortBy('site_id', SORT_REGULAR, false);
             }
 
             $view->starts_at = $starts_at;
@@ -66,7 +66,7 @@ class HomeController extends Controller
             $view->what = $what;
             $view->available_spots = $available_spots;
         } else {
-            $view->available_spots = CampSite::where('type','rustic')->get();
+            $view->available_spots = CampSite::where('type','rustic')->get()->sortBy('site_id', SORT_REGULAR, false);
         }
 
         return $view;
@@ -169,7 +169,8 @@ class HomeController extends Controller
 
         Mail::send('emails.reservation-admin', $data, function($message) use ($request)
         {
-            $message->to('reservations@riflerivercampground.com', 'Rifle River Campground Reservations');
+            //$message->to('reservations@riflerivercampground.com', 'Rifle River Campground Reservations');
+            $message->to('mrcrandell@gmail.com', 'Rifle River Campground Reservations');
             $message->replyTo($request->get('email'), $request->get('name'));
             $message->subject('A Reservation has been made on the Rifle River Campground Website');
         });

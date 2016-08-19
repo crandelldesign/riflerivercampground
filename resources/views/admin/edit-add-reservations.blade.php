@@ -137,7 +137,7 @@
                 <div class="col-sm-6">
                     <div class="control-group form-group {{(count($errors) > 0 && $errors->first('email'))?'has-error':''}}">
                         <label>Email Address</label>
-                        <input type="email" name="email" value="{{old('email')?old('email'):((isset($reservation))?$reservation->contact_email:''}})" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Email">
+                        <input type="email" name="email" value="{{old('email')?old('email'):((isset($reservation))?$reservation->contact_email:'')}}" size="40" class="form-control" aria-required="true" aria-invalid="false" placeholder="Email">
                     </div>
                 </div>
             </div>
