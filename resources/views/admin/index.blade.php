@@ -23,7 +23,16 @@
 			    <hr>
 			@endif
 
-			<p>Administrative functionality is coming soon.</p>
+			<div class="row">
+				<div class="col-md-6 margin-bottom-15"><a href="{{url('/admin/reservations')}}" class="btn btn-lg btn-default btn-block">Check Reservations</a></div>
+				<div class="col-md-6 margin-bottom-15"><a href="{{url('/admin/reservations/add')}}" class="btn btn-lg btn-default btn-block">Add New Reservation</a></div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-4 margin-bottom-15"><a href="{{url('/admin/camping')}}" class="btn btn-lg btn-default btn-block">Edit Camp Sites</a></div>
+				<div class="col-md-4 margin-bottom-15"><a href="{{url('/admin/cabins')}}" class="btn btn-lg btn-default btn-block">Edit Cabin Sites</a></div>
+				<div class="col-md-4 margin-bottom-15"><a href="{{url('/admin/holidays')}}" class="btn btn-lg btn-default btn-block">Edit Holidays</a></div>
+			</div>
 		</div>
 	</div>
 @stop

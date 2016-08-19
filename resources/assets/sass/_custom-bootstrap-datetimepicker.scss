@@ -1,0 +1,21 @@
+// Datepicker Fixes
+
+.bootstrap-datetimepicker-widget {
+    table {
+        td {
+            &.today {
+                &:before {
+                    border: 0;
+                    border-style: solid;
+                    border-color: transparent transparent #ffffff transparent;
+                    border-width: 0 0 7px 7px;
+                }
+            }
+            &.other-day {
+                background-color: $gray;
+                color: $bs-datetimepicker-active-color;
+                text-shadow: $bs-datetimepicker-text-shadow;
+            }
+        }
+    }
+} 

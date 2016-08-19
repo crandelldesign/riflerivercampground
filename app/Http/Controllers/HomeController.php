@@ -93,11 +93,7 @@ class HomeController extends Controller
                 'g-recaptcha-response.required' => 'Please check the reCAPTCHA box.',
             ]
         );
-
-        /*$validator->sometimes(['site_id'], 'required|unique:camp_sites', function($data) {
-            return !$data->get('campsite_id');
-        });*/
-
+        
         if ($validator->fails()) {
             return redirect(URL::previous())
                         ->withErrors($validator)

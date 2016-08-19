@@ -14,14 +14,14 @@
             <div class="form-group">
                 <label>From</label>
                 <div class="input-group date" id="subhead_starts_at">
-                    <input class="form-control date" name="starts_at" type="text" placeholder="{{date('m/d/Y')}}" value="{{old('starts_at')?old('starts_at'):''}}">
+                    <input class="form-control date" name="starts_at" type="text" placeholder="{{date('n/d/Y')}}" value="{{old('starts_at')?old('starts_at'):''}}">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
             <div class="form-group">
                 <label>To</label>
                 <div class="input-group date" id="subhead_ends_at">
-                    <input class="form-control date" name="ends_at" type="text" placeholder="{{date('m/d/Y',strtotime('+3 days'))}}" value="{{old('ends_at')?old('ends_at'):''}}">
+                    <input class="form-control date" name="ends_at" type="text" placeholder="{{date('n/d/Y',strtotime('+3 days'))}}" value="{{old('ends_at')?old('ends_at'):''}}">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                <button type="submit" class="btn btn-blue">Reserve Now</button>
+                <button type="submit" class="btn btn-blue">Check Availability</button>
             </div>
         </form>
     </div>
@@ -78,11 +78,18 @@
             format: 'M/D/YYYY'
         });
         $("#subhead_starts_at").on("dp.change", function (e) {
+            checkMinimumStay($("#subhead_starts_at input").val());
             $('#subhead_ends_at').data("DateTimePicker").minDate(e.date);
+            
         });
         $("#subhead_ends_at").on("dp.change", function (e) {
-            $('#subhead_starts_at').data("DateTimePicker").maxDate(e.date);
+            //$('#subhead_starts_at').data("DateTimePicker").maxDate(e.date);
         });
+
     });
+    function updatesEndsAt(days)
+    {
+        $('#subhead_ends_at input').val(moment($("#subhead_starts_at input").val(),'M/D/YYYY').add(days,'days').format('M/D/YYYY'));
+    }
 </script>
 @stop

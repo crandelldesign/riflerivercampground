@@ -175,6 +175,7 @@
         });
         $("#starts_at").on("dp.change", function (e) {
             $('#ends_at').data("DateTimePicker").minDate(e.date);
+            $('#subhead_ends_at input').val(moment($("#subhead_starts_at input").val(),'M/D/YYYY').add(2,'days').format('M/D/YYYY'));
         });
         $("#ends_at").on("dp.change", function (e) {
             $('#starts_at').data("DateTimePicker").maxDate(e.date);

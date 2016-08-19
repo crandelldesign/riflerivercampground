@@ -40,6 +40,17 @@ class ApiController extends Controller
         return json_encode($available_spots);
     }
 
+    public function getMinimumStay(Request $request)
+    {
+        $starts_at = strtotime($request->get('starts_at'));
+        $holidays = Holiday::where('starts_at','<=',date("Y-m-d H:i:s", $starts_at))
+            ->where('ends_at','>',date("Y-m-d H:i:s", $starts_at))->first();
+        if($holidays)
+            return 3;
+        else
+            return 2;
+    }
+
     public function getApproveReservation(Request $request)
     {
         if (!$request->get('reservation_id'))
