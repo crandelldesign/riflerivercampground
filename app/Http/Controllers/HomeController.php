@@ -165,8 +165,7 @@ class HomeController extends Controller
 
         Mail::send('emails.reservation-admin', $data, function($message) use ($request)
         {
-            //$message->to('reservations@riflerivercampground.com', 'Rifle River Campground Reservations');
-            $message->to('mrcrandell@gmail.com', 'Rifle River Campground Reservations');
+            $message->to('reservations@riflerivercampground.com', 'Rifle River Campground Reservations');
             $message->replyTo($request->get('email'), $request->get('name'));
             $message->subject('A Reservation has been made on the Rifle River Campground Website');
         });
