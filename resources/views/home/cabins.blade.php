@@ -27,4 +27,9 @@
     </table>
 </div>
 <p>Maximum occupancy of 6 adults per cabin. $100 security deposit required. Deposit refunded after inspection of cabin at check out. No smoking or pets allowed in cabins. Please note that bedding is not provided.</p>
+
+<hr>
+
+<p class="text-muted">Please note: No refunds due to weather or early departure. Payment will be refunded in full, less a $20 service fee, only when cancellations are made 4 weeks in advance of arrival. No personal checks accepted.</p>
+
 @stop
