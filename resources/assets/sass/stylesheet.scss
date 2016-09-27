@@ -292,3 +292,24 @@ a.img-modal {
         margin-right: 5px;
     }
 }
+
+/* Zombie on the River */
+.zombie-on-the-river-container {
+    background: #4cb848 url(/img/events/zombie-on-the-river-wallpaper.jpg) center center;
+    background-size: cover;
+    width: 100%;
+    min-height: 400px;
+    padding: 15px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    @media (min-width: $screen-sm-min) {
+        padding: 20px;
+    }
+    h2 {
+        color: #35b729;
+        margin-top: 0;
+    }
+    address {
+        margin-top: 20px;
+    }
+}
