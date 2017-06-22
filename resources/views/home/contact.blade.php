@@ -9,7 +9,7 @@
 <h1>Contact Us</h1>
 
 <address>Rifle River Campground &amp; Canoe Livery<br>
-    5825 Townline Rd<br>
+    5825 N Townline Rd<br>
     PO Box 105<br>
     Sterling, MI 48659</address>
 
@@ -65,7 +65,7 @@
         </form>
     </div>
     <div class="col-sm-6">
-        <div class="embed-responsive embed-responsive-4by3"><iframe class="embed-responsive-item" style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d91711.00029593651!2d-84.026555!3d44.083999!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x53d4159da39a1078!2sRifle+River+Campground+%26+Canoe+Livery!5e0!3m2!1sen!2sus!4v1441941313578" width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+        <div class="embed-responsive embed-responsive-4by3"><iframe class="embed-responsive-item" style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3898.1262963070376!2d-84.03930597052606!3d44.08462350490878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x586d7381e2b10c93!2sRifle+River+Campground+%26+Canoe+Livery!5e0!3m2!1sen!2sus!4v1498095161110" width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
     </div>
 </div>
 

@@ -10,13 +10,13 @@
 
 <table class="table">
     <tbody>
-        <tr>
+        <!--<tr>
             <td>Regular Open Bottom Tubes</td>
             <td>$22</td>
         </tr><tr>
             <td>Regular w/Bottom</td>
             <td>$24</td>
-        </tr><tr>
+        </tr>--><tr>
             <td>Deluxe Open Bottom</td>
             <td>$27</td>
         </tr><tr>
