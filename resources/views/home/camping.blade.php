@@ -36,4 +36,8 @@
 <p>Our modern bathhouse offers 10 private bathrooms, 8 private showers and handicap access, conveniently located near the bulk of the group camping sites.</p>
 <p>For children, we have a large Rainbow Play System that features side by side slides for racing, a twirly slide, climbing wall, swings and more! Our playground is surrounded by sand for safer play.</p>
 
+<hr>
+
+<p class="text-muted">Please note: No refunds due to weather or early departure. Payment will be refunded in full, less a $20 service fee, only when cancellations are made 4 weeks in advance of arrival. No personal checks accepted.</p>
+
 @stop
