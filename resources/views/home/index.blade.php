@@ -8,6 +8,8 @@
 <div class="subhead">
     <h1>Peaceful Camping and Canoeing in beautiful Sterling, MI</h1>
 
+    <?php $reservation_front_end = env('RESERVATION_FRONT_END', false) ?>
+    @if ($reservation_front_end)
     <div class="reservation">
         <h2>Schedule Your Vacation Today</h2>
         <form class="form-inline" action="{{url('/subhead-reservation')}}" method="post">
@@ -38,6 +40,7 @@
             </div>
         </form>
     </div>
+    @endif
 
     <!--<div>
         <a href="{{url('/park-map')}}" class="btn btn-blue btn-lg">See Our Campground</a>

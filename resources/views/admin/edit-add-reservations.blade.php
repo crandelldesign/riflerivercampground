@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content-header')
     @if (isset($reservation))
-    <h1>Reservation # {{$reservation->id}} - {{$reservation->contact_name}}</h1>
+    <h1>Reservation # {{$reservation->id}} - {{date('n/j/Y',strtotime($reservation->starts_at))}} - {{$reservation->contact_name}}</h1>
     @else
     <h1>Add Reservation</h1>
     @endif
@@ -13,6 +13,10 @@
         {{ session('status') }}
     </div>
 @endif
+
+<div class="alert alert-success alert-users-notified" style="display:none">
+    <p>The user has been notified of their reservation.</p>
+</div>
 
 @if (count($errors) > 0)
     <div class="alert alert-danger alert-dismissible fade in">
@@ -32,6 +36,7 @@
         <div class="text-center">
             <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#check-in-modal">Check{{$reservation->is_checked_in?'ed':''}} In</button>
             <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#approve-reject-modal">Approve / Reject</button>
+            <button class="btn btn-lg btn-info" data-toggle="modal" data-target="#notify-user-modal">Notify User</button>
         </div>
 
     </div>
@@ -192,6 +197,23 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" tabindex="-1" role="dialog" id="notify-user-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Notify User</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to notify the user about the reservation?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-success btn-notify">Notify</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 @if(isset($reservation))
 <div class="modal fade" tabindex="-1" role="dialog" id="check-in-modal">
     <div class="modal-dialog">
@@ -282,6 +304,22 @@
                 data: reservationObject,
                 success: function(data) {
                     location.reload();
+                }
+            });
+        });
+
+        $('.btn-notify').on('click', function(event)
+        {
+            var reservationObject =  new Object;
+            reservationObject.reservation_id = {{(isset($reservation))?$reservation->id:0}}
+            $.ajax({
+                url: '{{url("/api/notify-reservation")}}',
+                type: 'GET',
+                data: reservationObject,
+                success: function(data) {
+                    //location.reload();
+                    $('#notify-user-modal').modal('hide');
+                    $('.alert-users-notified').show();
                 }
             });
         });

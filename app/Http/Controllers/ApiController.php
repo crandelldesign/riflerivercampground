@@ -84,4 +84,26 @@ class ApiController extends Controller
 
         return json_encode($reservation);
     }
+
+    public function getNotifyReservation(Request $request)
+    {
+        if (!$request->get('reservation_id'))
+            abort(400);
+
+        if (!Auth::check())
+            abort(400);
+
+        $reservation = Reservation::find($request->get('reservation_id'));
+        $data = array(
+            'reservation' => $reservation,
+        );
+         Mail::send('emails.reservation-notify', $data, function($message) use ($reservation)
+        {
+            $message->to($reservation->contact_email, $reservation->contact_name);
+            $message->replyTo('reservations@riflerivercampground.com', 'Rifle River Campground Reservations');
+            $message->subject('Reminder of Your Reservation');
+        });
+
+        return json_encode($reservation);
+    }
 }
