@@ -262,6 +262,7 @@
         });
         $("#starts_at").on("dp.change", function (e) {
             $('#ends_at').data("DateTimePicker").minDate(e.date);
+            checkAvailability();
         });
         $("#ends_at").on("dp.change", function (e) {
             $('#starts_at').data("DateTimePicker").maxDate(e.date);
