@@ -72,6 +72,9 @@
                     </div>
                 </div>
             </div>
+            <div class="alert alert-warning reservation-check-error" role="alert" style="display: none">
+                Please select a starting date to see what sites are available.
+            </div>
             <div class="row">
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
@@ -338,6 +341,7 @@
                 type: 'GET',
                 data: availabilityObject,
                 success: function(data) {
+                    $('.reservation-check-error').hide();
                     if (JSON.parse(data).length === 0) {
                         $('.alert-no-sites').show();
                     } else {
@@ -351,6 +355,9 @@
                         data: JSON.parse(data)
                     });
                     $('#site-id').html(html);
+                },
+                error: function(data) {
+                    $('.reservation-check-error').show();
                 }
             });
         }
