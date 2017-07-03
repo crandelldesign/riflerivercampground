@@ -241,6 +241,15 @@
 	}
 }
 
+/* Reservation List */
+.list-inline {
+	li.active {
+		a {
+			color: #333333;
+		}
+	}
+}
+
 /* Event Editing */
 .form-horizontal {
 	.modal-body {
@@ -249,4 +258,4 @@
     		margin-right: 0;
 		}
 	}
-} 
+}

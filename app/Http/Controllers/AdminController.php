@@ -285,6 +285,7 @@ class AdminController extends Controller
 
         $view = view('admin.reservations');
         $view->active_page = 'reservations';
+        $view->view = $request->get('view');
         $view->reservations = $reservations;
         $view->upcomming_reservations_count = $upcomming_reservations_count;
         $view->thisweek_reservations_count = $thisweek_reservations_count;

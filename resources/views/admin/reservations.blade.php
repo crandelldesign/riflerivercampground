@@ -20,15 +20,15 @@
         @endif
 
         <ul class="list-inline">
-            <li><a href="?view=upcoming">Upcoming ({{$upcomming_reservations_count}})</a></li>
-            <li><a href="?view=today">Today ({{$today_reservations_count}})</a></li>
-            <li><a href="?view=thisweek">This Week ({{$thisweek_reservations_count}})</a></li>
-            <li><a href="?view=nextweek">Next Week ({{$nextweek_reservations_count}})</a></li>
-            <li><a href="?view=nextmonth">Next Month ({{$nextmonth_reservations_count}})</a></li>
-            <li><a href="?view=pending">Pending ({{$unapproved_reservations_count}})</a></li>
-            <li><a href="?view=disabled">Rejected ({{$rejected_reservations_count}})</a></li>
-            <li><a href="?view=old">Old ({{$old_reservations_count}})</a></li>
-            <li><a href="?view=all">All ({{$all_reservations_count}})</a></li>
+            <li class="{{(!isset($view) || $view == 'upcoming')?'active':''}}"><a href="?view=upcoming">Upcoming ({{$upcomming_reservations_count}})</a></li>
+            <li class="{{(isset($view) && $view == 'today')?'active':''}}"><a href="?view=today">Today ({{$today_reservations_count}})</a></li>
+            <li class="{{(isset($view) && $view == 'thisweek')?'active':''}}"><a href="?view=thisweek">This Week ({{$thisweek_reservations_count}})</a></li>
+            <li class="{{(isset($view) && $view == 'nextweek')?'active':''}}"><a href="?view=nextweek">Next Week ({{$nextweek_reservations_count}})</a></li>
+            <li class="{{(isset($view) && $view == 'nextmonth')?'active':''}}"><a href="?view=nextmonth">Next Month ({{$nextmonth_reservations_count}})</a></li>
+            <li class="{{(isset($view) && $view == 'pending')?'active':''}}"><a href="?view=pending">Pending ({{$unapproved_reservations_count}})</a></li>
+            <li class="{{(isset($view) && $view == 'disabled')?'active':''}}"><a href="?view=disabled">Rejected ({{$rejected_reservations_count}})</a></li>
+            <li class="{{(isset($view) && $view == 'old')?'active':''}}"><a href="?view=old">Old ({{$old_reservations_count}})</a></li>
+            <li class="{{(isset($view) && $view == 'all')?'active':''}}"><a href="?view=all">All ({{$all_reservations_count}})</a></li>
             <li><a href="{{url('/admin/reservations/add')}}">Add New Reservation</a></li>
         </ul>
         <div class="table-responsive">
