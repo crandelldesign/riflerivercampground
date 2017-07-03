@@ -64,7 +64,7 @@ class AdminController extends Controller
         $view->token = '1234';
         return $view;
     }
-    
+
     public function getCamping()
     {
         $campsites = CampSite::orderBy('site_id', 'asc')->get()->sortBy('site_id', SORT_REGULAR, false);
@@ -102,10 +102,9 @@ class AdminController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
         if ($request->get('campsite_id'))
         {
-            $campsite = CampSite::where('site_id',$request->get('campsite_id'))->first();
+            $campsite = CampSite::where('id',$request->get('campsite_id'))->first();
             $success_message = 'Campsite #'.$request->get('site_id').' was successfully updated.';
         } else {
             $campsite = new CampSite;
@@ -230,14 +229,17 @@ class AdminController extends Controller
         } elseif ($edit_add == 'edit' && $reservation_id) {
             return $this->editReservation($reservation_id);
         }
-        $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->get();
+        $start_of_today = strtotime('today midnight');
+        $start_of_tomorrow = strtotime('tomorrow midnight');
+        $start_of_yesterday = strtotime('yesterday midnight');
+        $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $start_of_today))->get();
         if($request->get('view') == 'today')
         {
-            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+1 day')))->get();
+            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $start_of_today))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+1 day')))->get();
         }
         if($request->get('view') == 'thisweek')
         {
-            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->get();
+            $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $start_of_today))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->get();
         }
         if($request->get('view') == 'nextweek')
         {
@@ -257,7 +259,7 @@ class AdminController extends Controller
         }
         if($request->get('view') == 'old')
         {
-            $reservations = Reservation::active()->where('starts_at','<=',date('Y-m-d H:i:s'))->get();
+            $reservations = Reservation::active()->where('starts_at','<=',date('Y-m-d H:i:s', $start_of_today))->get();
         }
         if($request->get('view') == 'all')
         {
@@ -271,14 +273,14 @@ class AdminController extends Controller
             }
             $reservation->reservationable = $reservationable;
         }
-        $upcomming_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->count();
-        $today_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+1 day')))->count();
+        $upcomming_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $start_of_today))->count();
+        $today_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $start_of_today))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+1 day')))->count();
         $thisweek_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->count();
         $nextweek_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Sunday')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('Next Sunday', strtotime('Next Sunday'))))->count();
         $nextmonth_reservations_count =  Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s',strtotime('Next Month')))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+2 Months')))->count();
         $unapproved_reservations_count = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s'))->unapproved()->count();
         $rejected_reservations_count = Reservation::inactive()->count();
-        $old_reservations_count = Reservation::active()->where('starts_at','<=',date('Y-m-d H:i:s'))->count();
+        $old_reservations_count = Reservation::active()->where('starts_at','<=',date('Y-m-d H:i:s', $start_of_yesterday))->count();
         $all_reservations_count = Reservation::count();
 
         $view = view('admin.reservations');
@@ -309,7 +311,7 @@ class AdminController extends Controller
         $reservation = Reservation::find($reservation_id);
         if (!$reservation)
             return redirect('/reservations');
-        
+
         if ($reservation->reservationable_type == 'CampSite') {
             $available_spots = CampSite::get();
         } else {

@@ -349,7 +349,7 @@
                         $('.alert-no-sites').hide();
                         $('#site-id').prop('disabled', false);
                     }
-                    console.log(data);
+                    //console.log(data);
                     var source = $("#site-template").html();
                     var template = Handlebars.compile(source);
                     var html = template({
