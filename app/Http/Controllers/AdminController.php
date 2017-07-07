@@ -9,6 +9,7 @@ use riflerivercampground\Http\Controllers\Controller;
 
 use URL;
 use Validator;
+use StdClass;
 
 use riflerivercampground\CabinSite;
 use riflerivercampground\CampSite;
@@ -22,10 +23,55 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-    public function getIndex()
+    public function getIndex(Request $request, $month_year = null)
     {
+        $date = time();
+        $prev_month = strtotime('first day of -1 month', $date);
+        $next_month = strtotime('first day of +1 month', $date);
+        $today = getdate();
+        $first_day_of_the_month = strtotime(date('F', $date).' 1, '.date('Y', $date));
+        $last_day_of_the_month = strtotime(date('F', $date).' '.date('t', $date).', '.date('Y', $date));
+
         $view = view('admin.index');
         $view->active_page = 'home';
+
+        $view->current_date = time();
+        $view->date = $date;
+        $view->today = $today;
+        $view->prev_month = $prev_month;
+        $view->next_month = $next_month;
+        $view->first_day_of_the_month = $first_day_of_the_month;
+        $view->last_day_of_the_month = $last_day_of_the_month;
+        $view->daysToDisplay = date('w', $first_day_of_the_month) + date('t', $date) + (6 - date('w', $last_day_of_the_month));
+
+        $reservations = Reservation::where('starts_at','>=',date('Y-m-d H:i:s', $first_day_of_the_month))
+                ->where('starts_at','<',date('Y-m-d H:i:s', $next_month))
+                ->orderBy('starts_at')
+                ->get();
+
+        $month = new StdClass;
+        for ($d = 1; $d <= date('t',$date); $d++)
+        {
+            $month->dates[$d] = new StdClass;
+            $day = strtotime(date('F', $date).' '.$d.', '.date('Y', $date));
+            $next_day = strtotime('+1 day', $day);
+            $month->dates[$d]->php_date = $day;
+            $month->dates[$d]->date_time = date('Y-m-d H:i:s', $day);
+            $month->dates[$d]->day_count = $d;
+            $month->dates[$d]->reservation_count = 0;
+            $e = 0;
+            foreach ($reservations as $reservation) {
+                $month->dates[$d]->reservations[$e] = new StdClass;
+                if($reservation->starts_at >= date("Y-m-d H:i:s", $day) && $reservation->starts_at < date("Y-m-d H:i:s", $next_day))
+                {
+                    $month->dates[$d]->reservations[$e] = json_decode($reservation);
+                    $e++;
+                    $month->dates[$d]->reservation_count = $e;
+                }
+            }
+        }
+        $view->month = $month;
+
         return $view;
     }
 
@@ -222,15 +268,35 @@ class AdminController extends Controller
         return redirect('/admin/holidays')->with('success',$success_message);
     }
 
-    public function getReservations(Request $request, $edit_add = null, $reservation_id = null)
+    public function getReservations(Request $request, $edit_add = null, $reservation_id = null, $month = null, $day = null)
     {
         if ($edit_add == 'add') {
             return $this->addReservation();
         } elseif ($edit_add == 'edit' && $reservation_id) {
             return $this->editReservation($reservation_id);
+        } elseif ($edit_add == 'list' && $day)  {
+            $year = $reservation_id;
+            $date = strtotime($year.'-'.$month.'-'.$day);
+        } elseif ($edit_add == 'list' && $month)  {
+            $year = $reservation_id;
+            $date = strtotime($year.'-'.$month.'-01');
+        } elseif ($edit_add == 'list' && (strlen($reservation_id) == 4))  {  //reservation_id is year
+            $year = $reservation_id;
+            $date = strtotime($year.'-'.date('m').'-01');
+        } else {
+            $date = time();
         }
+        if (!(bool)$date) {
+            return redirect('/admin/reservations');
+        }
+        $prev_month = strtotime('first day of -1 month', $date);
+        $next_month = strtotime('first day of +1 month', $date);
+        $today = getdate();
+        $first_day_of_the_month = strtotime(date('F', $date).' 1, '.date('Y', $date));
+        $last_day_of_the_month = strtotime(date('F', $date).' '.date('t', $date).', '.date('Y', $date));
+
+
         $start_of_today = strtotime('today midnight');
-        $start_of_tomorrow = strtotime('tomorrow midnight');
         $start_of_yesterday = strtotime('yesterday midnight');
         $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $start_of_today))->get();
         if($request->get('view') == 'today')
@@ -296,6 +362,43 @@ class AdminController extends Controller
         $view->rejected_reservations_count = $rejected_reservations_count;
         $view->old_reservations_count = $old_reservations_count;
         $view->all_reservations_count = $all_reservations_count;
+
+        $view->current_date = time();
+        $view->date = $date;
+        $view->today = $today;
+        $view->prev_month = $prev_month;
+        $view->next_month = $next_month;
+        $view->first_day_of_the_month = $first_day_of_the_month;
+        $view->last_day_of_the_month = $last_day_of_the_month;
+        $view->daysToDisplay = date('w', $first_day_of_the_month) + date('t', $date) + (6 - date('w', $last_day_of_the_month));
+
+        $reservations = Reservation::where('starts_at','>=',date('Y-m-d H:i:s', $first_day_of_the_month))
+                ->where('starts_at','<',date('Y-m-d H:i:s', $next_month))
+                ->orderBy('starts_at')
+                ->get();
+
+        $month = new StdClass;
+        for ($d = 1; $d <= date('t',$date); $d++)
+        {
+            $month->dates[$d] = new StdClass;
+            $day = strtotime(date('F', $date).' '.$d.', '.date('Y', $date));
+            $next_day = strtotime('+1 day', $day);
+            $month->dates[$d]->php_date = $day;
+            $month->dates[$d]->date_time = date('Y-m-d H:i:s', $day);
+            $month->dates[$d]->day_count = $d;
+            $month->dates[$d]->reservation_count = 0;
+            $e = 0;
+            foreach ($reservations as $reservation) {
+                $month->dates[$d]->reservations[$e] = new StdClass;
+                if($reservation->starts_at >= date("Y-m-d H:i:s", $day) && $reservation->starts_at < date("Y-m-d H:i:s", $next_day))
+                {
+                    $month->dates[$d]->reservations[$e] = json_decode($reservation);
+                    $e++;
+                    $month->dates[$d]->reservation_count = $e;
+                }
+            }
+        }
+        $view->month = $month;
         return $view;
     }
 

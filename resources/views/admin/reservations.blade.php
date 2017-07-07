@@ -19,6 +19,8 @@
             </div>
         @endif
 
+        @include('layouts.reservation-month')
+
         <ul class="list-inline">
             <li class="{{(!isset($view) || $view == 'upcoming')?'active':''}}"><a href="?view=upcoming">Upcoming ({{$upcomming_reservations_count}})</a></li>
             <li class="{{(isset($view) && $view == 'today')?'active':''}}"><a href="?view=today">Today ({{$today_reservations_count}})</a></li>
