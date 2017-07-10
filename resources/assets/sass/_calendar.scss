@@ -1,0 +1,59 @@
+/* Calendar */
+table.calendar {
+    >thead>tr>th {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+        @media (min-width: $screen-sm-min) {
+            font-size: 14px;
+        }
+    }
+    > tbody > tr > td {
+        width: (100% / 7);
+        padding: 8px 3px;
+        @media (min-width: $screen-sm-min) {
+            padding: 8px;
+        }
+        &.today {
+            a {
+                color: $black;
+            }
+        }
+        &.selected {
+            background-color: #f5f5f5;
+            a {
+                color: $green;
+            }
+        }
+        a {
+            display: block;
+            @media (min-width: $screen-sm-min) {
+                /*height: 80px;*/
+            }
+        }
+        .day-count {
+            display: block;
+        }
+        .reservation-count {
+            font-size: 8px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 30px;
+            @media (min-width: $screen-sm-min) {
+                font-size: 11px;
+                white-space: normal;
+                max-width: none;
+            }
+        }
+        a.cal-event {
+            display: block;
+
+            margin-bottom: 5px;
+            overflow: hidden;
+
+            &:hover {
+                color: #f5f5f5;
+            }
+        }
+    }
+}

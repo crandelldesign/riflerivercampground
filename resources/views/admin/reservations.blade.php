@@ -21,7 +21,7 @@
 
         @include('layouts.reservation-month')
 
-        <ul class="list-inline">
+        <ul class="list-inline hidden">
             <li class="{{(!isset($view) || $view == 'upcoming')?'active':''}}"><a href="?view=upcoming">Upcoming ({{$upcomming_reservations_count}})</a></li>
             <li class="{{(isset($view) && $view == 'today')?'active':''}}"><a href="?view=today">Today ({{$today_reservations_count}})</a></li>
             <li class="{{(isset($view) && $view == 'thisweek')?'active':''}}"><a href="?view=thisweek">This Week ({{$thisweek_reservations_count}})</a></li>
@@ -33,6 +33,7 @@
             <li class="{{(isset($view) && $view == 'all')?'active':''}}"><a href="?view=all">All ({{$all_reservations_count}})</a></li>
             <li><a href="{{url('/admin/reservations/add')}}">Add New Reservation</a></li>
         </ul>
+        <h3 class="margin-top-0 margin-bottom-0 text-center">Reservations for {{date('n/j/Y',$date)}}</h3>
         <div class="table-responsive">
             <table class="table table-striped reservations">
             <thead>

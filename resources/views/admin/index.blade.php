@@ -25,6 +25,8 @@
 
 			@include('layouts.reservation-month')
 
+			<hr>
+
 			<div class="row">
 				<div class="col-md-6 margin-bottom-15"><a href="{{url('/admin/reservations')}}" class="btn btn-lg btn-default btn-block">Check Reservations</a></div>
 				<div class="col-md-6 margin-bottom-15"><a href="{{url('/admin/reservations/add')}}" class="btn btn-lg btn-default btn-block">Add New Reservation</a></div>

@@ -298,7 +298,7 @@ class AdminController extends Controller
 
         $start_of_today = strtotime('today midnight');
         $start_of_yesterday = strtotime('yesterday midnight');
-        $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $start_of_today))->get();
+        $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $date))->get();
         if($request->get('view') == 'today')
         {
             $reservations = Reservation::active()->where('starts_at','>=',date('Y-m-d H:i:s', $start_of_today))->where('starts_at','<=',date('Y-m-d H:i:s',strtotime('+1 day')))->get();
