@@ -390,7 +390,7 @@ class AdminController extends Controller
             $e = 0;
             foreach ($reservations as $reservation) {
                 $month->dates[$d]->reservations[$e] = new StdClass;
-                if($reservation->starts_at >= date("Y-m-d H:i:s", $day) && $reservation->starts_at < date("Y-m-d H:i:s", $next_day))
+                if ($day >= strtotime($reservation->starts_at) && $day < strtotime($reservation->ends_at))
                 {
                     $month->dates[$d]->reservations[$e] = json_decode($reservation);
                     $e++;

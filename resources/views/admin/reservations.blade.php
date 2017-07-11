@@ -48,6 +48,7 @@
                     <th>End</th>
                     <th>Price</th>
                     <th>Type</th>
+                    <th>Site ID</th>
                     <th>Status</th>
                     <th>&nbsp;</th>
                 </tr>
@@ -69,6 +70,7 @@
                         @else
                             Cabin
                         @endif</td>
+                        <td>{{$reservation->reservationable->site_id}}</td>
                         <td>
                             @if($reservation->is_checked_in)
                                 <span class="label label-success">Checked In</span>
@@ -100,6 +102,7 @@
             // Disable initial sorting
             "aaSorting": [],
             "aoColumns": [
+                null,
                 null,
                 null,
                 null,
