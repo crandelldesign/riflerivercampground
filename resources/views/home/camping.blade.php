@@ -20,6 +20,9 @@
         <td>Modern</td>
         <td>$18/person/night</td>
     </tr><tr>
+        <td>Riverside</td>
+        <td>$20/person/night</td>
+    </tr><tr>
         <td>Children 6-15</td>
         <td>$3/person/night</td>
     </tr><tr>

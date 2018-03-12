@@ -12,7 +12,7 @@ function checkMinimumStay(starts_at)
             } else {
                 return data
             }
-            
+
         }
     });
 }
