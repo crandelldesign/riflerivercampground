@@ -219,11 +219,12 @@ class HomeController extends Controller
             $view->active_page = 'river-trips';
             return $view;
         } elseif ($sub == 'specials') {
-            $view = view('home.specials');
+            return redirect('/river-trips');
+            /*$view = view('home.specials');
             $view->title = "Specials";
             $view->description = "River trip specials";
             $view->active_page = 'river-trips';
-            return $view;
+            return $view;*/
         } else {
             $view = view('home.river-trips');
             $view->title = "River Trips";

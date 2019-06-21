@@ -88,10 +88,10 @@
 
 <h2><a href="https://www.facebook.com/RifleRiverCampground" target="_blank"><i class="fa fa-facebook-square"></i> Find us on Facebook</a></h2>
 
-<h2>Specials</h2>
+<!--<h2>Specials</h2>
 <h3>Midweek special</h3>
 <p>$5.00 off per person on all river trips. 5 or more rentals — 1/2 off!<br>
-    <small>*rates valid Monday through Thursday (excluding holidays)</small></p>
+    <small>*rates valid Monday through Thursday (excluding holidays)</small></p>-->
 
 @stop
 

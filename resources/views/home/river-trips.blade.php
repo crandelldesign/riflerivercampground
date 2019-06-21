@@ -11,7 +11,7 @@
     <li><a href="{{url('/river-trips/tubing')}}">Tubing</a></li>
 </ul>
 
-<p>Check out our specials <a href="{{url('/river-trips/specials')}}">here</a>.</p>
+<!--<p>Check out our specials <a href="{{url('/river-trips/specials')}}">here</a>.</p>-->
 
 <hr>
 

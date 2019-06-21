@@ -26,7 +26,7 @@
                             <li><a title="Canoeing" href="{{url('/river-trips/canoeing')}}">Canoeing</a></li>
                             <li><a title="Kayaking" href="{{url('/river-trips/kayaking')}}">Kayaking</a></li>
                             <li><a title="Tubing" href="{{url('/river-trips/tubing')}}">Tubing</a></li>
-                            <li><a title="Specials" href="{{url('/river-trips/specials')}}">Specials</a></li>
+                            <!--<li><a title="Specials" href="{{url('/river-trips/specials')}}">Specials</a></li>-->
                         </ul>
                     </li>
                     <li class="{{(isset($active_page)) && $active_page=='park-map'?'active':''}}"><a title="Park Map" href="{{url('/park-map')}}">Park Map</a></li>
