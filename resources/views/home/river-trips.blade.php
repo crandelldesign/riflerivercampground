@@ -15,6 +15,6 @@
 
 <hr>
 
-<p class="text-muted">Please note: No refunds due to weather or early departure. Payment will be refunded in full, less a $20 service fee, only when cancellations are made 4 weeks in advance of arrival. No personal checks accepted.</p>
+<p class="text-muted">Please note: No refunds due to weather or early departure. Payment will be refunded in full, less a $20 service fee, only when cancellations are made 4 weeks in advance of arrival. No personal checks accepted. No outsided firewood allowed. No outside canoes, tubes or kayaks are permitted in the campground.</p>
 
 @stop

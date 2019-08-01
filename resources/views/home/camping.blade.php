@@ -15,21 +15,21 @@
     <tbody>
     <tr>
         <td>Rustic</td>
-        <td>$15/person/night</td>
-    </tr><tr>
-        <td>Modern</td>
         <td>$18/person/night</td>
     </tr><tr>
+        <td>Modern</td>
+        <td>$22/person/night</td>
+    </tr><tr>
         <td>Riverside</td>
-        <td>$20/person/night</td>
+        <td>$25/person/night</td>
     </tr><tr>
         <td>Children 6-15</td>
-        <td>$3/person/night</td>
+        <td>$5/person/night</td>
     </tr><tr>
         <td colspan="2">Children 5 and under camp free!</td>
     </tr><tr>
         <td>Dogs</td>
-        <td>$3/night</td>
+        <td>$5/night</td>
     </tr>
     </tbody>
 </table>
