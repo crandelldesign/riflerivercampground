@@ -18,7 +18,7 @@
                 <td>Moffatt to Park</td>
                 <td>16</td>
                 <td>2-3</td>
-                <td>$50.00</td>
+                <td>$40.00</td>
             </tr><tr>
                 <td>Greenwood to Park</td>
                 <td>29</td>
