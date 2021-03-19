@@ -18,13 +18,13 @@
             <td>$24</td>
         </tr>--><tr>
             <td>Deluxe Open Bottom</td>
-            <td>$27</td>
+            <td>$28</td>
         </tr><tr>
             <td>Deluxe w/Bottom</td>
-            <td>$27</td>
+            <td>$28</td>
         </tr><tr>
             <td>Cooler Tube</td>
-            <td>$10</td>
+            <td>$12</td>
         </tr>
     </tbody>
 </table>

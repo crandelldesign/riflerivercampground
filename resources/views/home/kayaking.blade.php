@@ -19,14 +19,14 @@
                 <td>Moffatt to Park</td>
                 <td>16</td>
                 <td>2-3</td>
-                <td>$27.00</td>
-                <td>$40.00</td>
+                <td>$28.00</td>
+                <td>$42.00</td>
             </tr><tr>
                 <td>Greenwood to Park</td>
                 <td>29</td>
                 <td>4-6</td>
-                <td>$37.00</td>
-                <td>$50.00</td>
+                <td>$38.00</td>
+                <td>$52.00</td>
             </tr>
         </tbody>
     </table>

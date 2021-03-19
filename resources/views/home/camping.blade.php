@@ -15,13 +15,13 @@
     <tbody>
     <tr>
         <td>Rustic</td>
-        <td>$18/person/night</td>
+        <td>$20/person/night</td>
     </tr><tr>
         <td>Modern</td>
-        <td>$22/person/night</td>
+        <td>$23/person/night</td>
     </tr><tr>
         <td>Riverside</td>
-        <td>$25/person/night</td>
+        <td>$26/person/night</td>
     </tr><tr>
         <td>Children 6-15</td>
         <td>$5/person/night</td>
