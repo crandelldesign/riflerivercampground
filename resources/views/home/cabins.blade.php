@@ -11,7 +11,7 @@
     <table class="table">
         <tbody>
             <tr>
-                <td>$125 per night</td>
+                <td>$135 per night</td>
                 <td>1-4 adults</td>
             </tr><tr>
                 <td>$25</td>

@@ -16,11 +16,11 @@
         </tr><tr>
             <td>Regular w/Bottom</td>
             <td>$24</td>
-        </tr>--><tr>
+        </tr>--><!-- <tr>
             <td>Deluxe Open Bottom</td>
             <td>$28</td>
-        </tr><tr>
-            <td>Deluxe w/Bottom</td>
+        </tr>--><tr>
+            <td>Deluxe</td>
             <td>$28</td>
         </tr><tr>
             <td>Cooler Tube</td>

@@ -18,6 +18,8 @@
         <p>Phone: <a href="tel:989-654-2556" target="_blank">989-654-2556</a><br>
             Fax: <a href="tel:9896542521" target="_blank">989-654-2521</a><br>
             <!--Email: <a href="mailto:reservations@riflerivercampground.com" target="_blank">reservations@<wbr>riflerivercampground.com</a></p>-->
+        <p>For reservations:<br>
+        <a href="mailto:reservations@riflerivercampground.com">reservations@riflerivercampground.com</a></p>
         <p><a href="https://www.facebook.com/RifleRiverCampground" target="_blank"><i class="fa fa-facebook-square"></i> Find us on Facebook</a></p>
     </div>
     <div class="col-md-6">
